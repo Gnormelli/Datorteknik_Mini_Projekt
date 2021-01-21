@@ -2,6 +2,6 @@
 /* A “Hello World!” program. */
 int main()
 {
- printf("Hello, World! \n");
+ printf("TEST Hello, World! \n");
  return 0;
 }
