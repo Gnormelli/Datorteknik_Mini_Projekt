@@ -3,11 +3,9 @@
 //Function declarations
 
 void adder(const int *x,const int *y,int *z);
-
 int foo(int a);
 
 int main()
-
 {
     int result;
     result=foo(7);
@@ -18,7 +16,6 @@ int main()
 }
 
 void adder(const int *x,const int *y,int *z)
-
 {
     *z=(*x)+(*y);
 }
