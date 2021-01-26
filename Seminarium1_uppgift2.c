@@ -2,17 +2,13 @@
 /* A “Hello World!” program. */
 int main()
 {
- int x = 0x14;
- int y = 0xFFFFFFCA;
- int z = 0xFFFFFF80;
- 
- printf("%d \n",z);
- printf("%d \n",y);
+ int x = 0x14;              // 0001 0100
+ int y = 0xFFFFFCA;        // 1111 1111 1111 1111 1111 1111 1100 1010
+ int z = 0x000F000;        // 1111 1111 1111 1111 1111 1111 1000 0000  
 
- y<<5; 
- z = z<<8;
- printf("%d \n",z);
-  
- printf("%d",x);
+z= ((x & 0x3E00)>> 13)|((y & 0x7) <<5)| z;  
 
+ printf("%d \n",y);  
+ printf("%d \n",x);
+ printf("%d \n",z);
 }
