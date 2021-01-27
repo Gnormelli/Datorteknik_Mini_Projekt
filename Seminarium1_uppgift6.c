@@ -11,10 +11,10 @@ int main() {
   return 0;
 }
 
-void square_reverse(double *x, double *y, int len){
+void square_reverse(const double *x, double *y, const int len){
   int i = 0;
-  while(i < len){
-    y[len] = x[i] * x[i];
+  while(i <= len){
+    *(y+len-i-1) = *(x+i) * *(x+i);
     i++;
   }
 }
