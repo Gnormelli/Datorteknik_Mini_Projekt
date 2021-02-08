@@ -6,7 +6,30 @@
 char* text1 = "This is a string.";
 char* text2 = "Yet another thing.";
 
+char* list1;
+char* list2;
+int* count = 0;
 
+list1 = malloc(sizeof(char) * 80);
+list2 = malloc(sizeof(char) * 80);
+
+void copycodes(char* text, char* list, char* count){
+
+    while(text != 0){
+
+        *text = *list;
+
+        *text++;
+       // *list++?;
+
+       *count = *count + 1;
+    }
+
+}
+
+void work(){
+
+}
 
 void printlist(const int* lst){
   printf("ASCII codes and corresponding characters.\n");
@@ -34,3 +57,6 @@ int main(void){
 
   endian_proof((char*) &count);
 }
+
+free(list1);
+free(list2);
