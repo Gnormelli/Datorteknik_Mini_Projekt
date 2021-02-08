@@ -6,9 +6,9 @@
 char* text1 = "This is a string.";
 char* text2 = "Yet another thing.";
 
-char* list1;
-char* list2;
-int* count = 0;
+char *list1;
+char *list2;
+int *count = 0;
 
 list1 = malloc(sizeof(char) * 80);
 list2 = malloc(sizeof(char) * 80);
@@ -29,8 +29,8 @@ void copycodes(char* text, char* list, char* count){
 
 void work(){
 
-    copycodes(char* text1, char* list1, char* count);
-    copycodes(char* text2, char* list2, char* count);
+    copycodes(text1, list1, count);
+    copycodes(text2, list2, count);
 
 }
 
