@@ -19,15 +19,18 @@ void copycodes(char* text, char* list, char* count){
 
         *text = *list;
 
-        *text++;
-       // *list++?;
+        *text = *text + 1;
+        *list = *list + 4;
 
-       *count = *count + 1;
+        *count = *count + 1;
     }
 
 }
 
 void work(){
+
+    copycodes(char* text1, char* list1, char* count);
+    copycodes(char* text2, char* list2, char* count);
 
 }
 
