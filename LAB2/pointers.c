@@ -1,52 +1,55 @@
 
 
-
 #include <stdio.h>
 
-char* text1 = "This is a string.";
-char* text2 = "Yet another thing.";
+char *text1 = "This is a string.";
+char *text2 = "Yet another thing.";
 
 int list1[20];
-int list2[20];  
-int count = 0;
+int list2[20];
+int *count = 0;
 
-void copycodes(char* text, int* list, int* count){
+void copycodes(char *text, int *list, int *count)
+{
 
-    while(text != 0){
+  while (text != 0)
+  {
 
-        *text = *list;
+    *text = *list;
 
-        text++;
-        list++;
+    text++;
+    list++;
 
-        *count++;
-    }
-
+    *count++;
+  }
 }
 
-void work(){
+void work()
+{
 
-    copycodes(text1, list1, $count);
-    copycodes(text2, list2, $count);
-
+  copycodes(text1, list1, count);
+  copycodes(text2, list2, count);
 }
 
-void printlist(const int* lst){
+void printlist(const int *lst)
+{
   printf("ASCII codes and corresponding characters.\n");
-  while(*lst != 0){
+  while (*lst != 0)
+  {
     printf("0x%03X '%c' ", *lst, (char)*lst);
     lst++;
   }
   printf("\n");
 }
 
-void endian_proof(const char* c){
-  printf("\nEndian experiment: 0x%02x,0x%02x,0x%02x,0x%02x\n", 
-         (int)*c,(int)*(c+1), (int)*(c+2), (int)*(c+3));
-  
+void endian_proof(const char *c)
+{
+  printf("\nEndian experiment: 0x%02x,0x%02x,0x%02x,0x%02x\n",
+         (int)*c, (int)*(c + 1), (int)*(c + 2), (int)*(c + 3));
 }
 
-int main(void){
+int main(void)
+{
   work();
 
   printf("\nlist1: ");
@@ -55,5 +58,5 @@ int main(void){
   printlist(list2);
   printf("\nCount = %d\n", count);
 
-  endian_proof((char*) &count);
+  endian_proof((char *)&count);
 }
