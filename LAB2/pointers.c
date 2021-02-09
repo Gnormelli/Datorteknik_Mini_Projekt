@@ -5,30 +5,30 @@
 char *text1 = "This is a string.";
 char *text2 = "Yet another thing.";
 
-int list1[20];  // Interger = 32 bit = 4 byte allocate 80 bit space = 20 byte 
+int list1[20]; 
 int list2[20];
-int *count = 0;
+int count = 0;
 
-void copycodes(const char text, int *list, int *count)
+
+
+void copycodes(char* text, int* list, int* count)
 {
 
-  while (text != 0)
+  while (*text != 0)
   {
 
-    char text = *list;
+    *list = *text;
 
     text++;
     list++;
-
-    *count++;
+    (*count)++;
   }
 }
 
 void work()
 {
-
-  copycodes(text1, list1, count);
-  copycodes(text2, list2, count);
+  copycodes(text1, list1, &count);
+  copycodes(text2, list2, &count);
 }
 
 void printlist(const int *lst)
