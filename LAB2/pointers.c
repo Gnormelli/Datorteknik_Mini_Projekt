@@ -5,7 +5,7 @@
 char *text1 = "This is a string.";
 char *text2 = "Yet another thing.";
 
-int list1[20]; // Gustav  
+int list1[20]; // is 32 bits ie 4 bytes. 80/4 = 20 Gustav  
 int list2[20]; // Gustav 
 int count = 0; // Gustav 
 
