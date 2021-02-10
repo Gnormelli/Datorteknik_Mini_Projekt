@@ -5,30 +5,30 @@
 char *text1 = "This is a string.";
 char *text2 = "Yet another thing.";
 
-int list1[20]; 
-int list2[20];
-int count = 0;
+int list1[20]; // Gustav  
+int list2[20]; // Gustav 
+int count = 0; // Gustav 
 
 
 
-void copycodes(char* text, int* list, int* count)
+void copycodes(char* text, int* list, int* count) //Viktor
 {
 
-  while (*text != 0)
+  while (*text != 0) // viktor
   {
 
-    *list = *text;
+    *list = *text; //Viktor
 
-    text++;
-    list++;
-    (*count)++;
+    text++;        // Gustav
+    list++;        // Gustav 
+    (*count)++;    // Gustav  
   }
 }
 
-void work()
+void work() // Viktor
 {
-  copycodes(text1, list1, &count);
-  copycodes(text2, list2, &count);
+  copycodes(text1, list1, &count); // Viktor
+  copycodes(text2, list2, &count); // Viktor
 }
 
 void printlist(const int *lst)
