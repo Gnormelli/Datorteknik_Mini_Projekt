@@ -1,46 +1,43 @@
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <math.h>
-
+#include <time.h>
 
 #define COLUMNS 6
-int counter = 0;
 
 
-void print_number(int n)
+int c = 0; // Global variabel
+void print_number(int number)
 {
-
-  if(counter == COLUMNS)
-  {
-    printf("\n");
-    counter = 0;
-  }
-
-  printf("%10d ", n);
-  counter++;
-
+    printf("%10d ", number);
+    c++;
+    if (c == COLUMNS)
+    {
+        printf("\n");
+        c = 0;
+    }
 }
-void print_sieves(int n){
-	
-    int a[n + 1];
 
-    // Filling Array, will be changed later in code
-    for(int i = 0; i < n; i++){
-        a[i] = 1;
+void print_sieves(int n)
+{
+    bool numbers[n];
+    for (int i = 0; i < n; i++)
+    {
+        numbers[i] = true;
     }
-
-
-    //Sieves of Erasthones algorithm
-    for(int i = 2 ; i < sqrt(n); i++){                     // For every i below the root of n
-        if( a[i] == 1){                                     // if the array is true
-            for(int j = i * i; j <= n; j = j + i){          // for j = i^2, j = i^2 + i, i^2  not exceeding n, set to false
-                a[j] = 0;
+    for (int i = 2; i < sqrt(n); i++)
+    {
+        if(numbers[i] == 1)
+            for (int j = (i * i); j < n; j+=i)  
+            {
+                numbers[j] = false;
             }
-        }
     }
-    for(int i = 2; i <= n; i++){                            // if i is primes(a[i]) = true), it wil print all primes up to n
-        if(a[i] == 1){
+    for (int i = 2; i < n; i++)
+    {
+        if (numbers[i] == true)
+        {
             print_number(i);
         }
     }
@@ -49,10 +46,23 @@ void print_sieves(int n){
 // 'argv' is an array of char pointers, where each
 // char pointer points to a null-terminated string.
 int main(int argc, char *argv[])
-{
-  if(argc == 2)
-    print_sieves(atoi(argv[1]));
-  else
-    printf("Please state an interger number.\n");
-  return 0;
+{   
+    
+    // Calculate the time taken by fun() 
+    clock_t t; 
+    t = clock(); 
+    print_sieves(80000); 
+    t = clock() - t; 
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds 
+  
+    printf("fun() took %f seconds to execute \n", time_taken); 
+    return 0; 
+    /*
+    if (argc == 2)
+        print_sieves(atoi(argv[1]));
+    else
+        printf("Please state an interger number.\n");
+    return 0;
+    */
+   //print_sieves(105); // Fungerar som det ska.*/
 }
