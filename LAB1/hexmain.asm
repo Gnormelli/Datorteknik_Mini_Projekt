@@ -18,20 +18,25 @@ stop:	j	stop		# stop after one run
 	nop			# delay slot filler (just in case)
 
   # You can write your own code for hexasc here
-  # Kommer att ge hexadecimala värden.
+  # Kommer att ge hexadecimala vï¿½rden.
   hexasc:
-  	andi $t0,$a0,0xf		# Tar bitwise AND $a0 och zeroext 0xf till hela 32 bitar. 
+	andi	$t0,$a0,0xf		# taking only the last four bits
   
- 	ble $t0,9,siffra		# Branch if less or equal 0-9 ger en siffra 
- 	nop				# no operation dvs end		
+ 	ble	$t0,9,number
+ 	nop	
+ 		
+ 	ble	$t0,15,letters
+ 	nop
  	
- 	bokstav:
- 		addi $v0,$t0,0x37	
- 		jr $ra	
- 	
- 	siffra:
-  		addi $v0,$t0,0x30	 
-  		jr $ra			
+ number:
+  	addi 	$v0,$t0,0x30	# register $v0 has the seven least significant bits, an ASCII code 
+  	jr 	$ra		# 0x30 converts numbers to ASCII
+  	nop
+  		
+ letters:
+ 	addi 	$v0,$t0,0x37	# register $v0 has the seven least significant bits, 0x37 is for 
+ 	jr 	$ra		# the letters 
+ 	nop	
 				
 
 	
