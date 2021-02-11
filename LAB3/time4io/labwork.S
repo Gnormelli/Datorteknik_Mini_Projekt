@@ -64,10 +64,12 @@
   		ble $t3, 0, delayStopLoop
   		nop
   		sub $t3, $t3, 1
+  		
+  		li $t4, 0
   	
   		delayForLoop:
   		
-  			bge $t4, 360000, delayWhileLoop 
+  			bge $t4, 4711, delayWhileLoop 
   			nop
   			addi $t4, $t4, 1
   			j delayForLoop
@@ -143,6 +145,4 @@
   	
   	jr	$ra
   	nop
-  	
-
-
+  
