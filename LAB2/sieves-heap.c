@@ -44,13 +44,30 @@ void print_sieves(int n)
         }
     }
     for (int i = 2; i <= n; i++)
-    { // if i is primes(a[i]) = true), it wil print all primes up to n
+    { // if i is primes(a[i]) = true), it will print all primes up to n
         if (a[i] == 1)
         {
             print_number(i);
         }
     }
+    
+    for (int j = 2; j <= n; j++)
+    {
+        if (a[j] == 1)
+        {
+            for(int i = j; i <=n; i++){
+                
+                int x = 2; 
+                int y = a[j];
 
+                if (a[i] == 1 & y-x==8){
+                    x=a[j];
+                    counter++;
+                }
+            }
+        }
+    }
+    printf("\nCount: %d\n", counter);
     free(a);
 }
 // 'argc' contains the number of program arguments, and
