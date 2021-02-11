@@ -8,7 +8,7 @@ void delay(int ms) /* Wait a number of milliseconds, specified by the parameter 
         /* Executing the following for loop should take 1 ms */
         for (i = 0; i < 4711; i = i + 1) /* The constant 4711 must be easy to change! */
         {
-            /* Do nothing. */
+            /* Do nothing. Hej gurra*/
         }
     }
 }
