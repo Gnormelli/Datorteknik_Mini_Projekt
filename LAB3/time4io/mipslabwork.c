@@ -10,35 +10,42 @@
 
    For copyright and licensing, see file COPYING */
 
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "mipslab.h"  /* Declatations for these labs */
+#include <stdint.h>  /* Declarations of uint_32 and the like */
+#include <pic32mx.h> /* Declarations of system-specific addresses etc */
+#include "mipslab.h" /* Declatations for these labs */
 
 int mytime = 0x5957;
 
 char textstring[] = "text, more text, and even more text!";
 
 /* Interrupt Service Routine */
-void user_isr( void )
+void user_isr(void)
 {
   return;
 }
 
 /* Lab-specific initialization goes here */
-void labinit( void )
+void labinit(void)
 {
-  TRISE = (volatile int*) 0xbf88610;
-  
-  return;
-}
+  volatile int *push_buttons = (volatile int *)0x8000abc0;
+  volatile int *LED = (volatile int *)0x80007bc0;
+  while (1)
+  {
+    if ((*push_buttons) & 8)
+      *LED = 0x3f;
+    else
+      *LED = 0x0;
 
-/* This function is called repetitively from the main program */
-void labwork( void )
-{
-  delay( 1000 );
-  time2string( textstring, mytime );
-  display_string( 3, textstring );
-  display_update();
-  tick( &mytime );
-  display_image(96, icon);
+    return;
+  }
 }
+  /* This function is called repetitively from the main program */
+  void labwork(void)
+  {
+    delay(1000);
+    time2string(textstring, mytime);
+    display_string(3, textstring);
+    display_update();
+    tick(&mytime);
+    display_image(96, icon);
+  }
