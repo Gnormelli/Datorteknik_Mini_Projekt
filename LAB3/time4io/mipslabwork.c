@@ -27,6 +27,8 @@ void user_isr( void )
 /* Lab-specific initialization goes here */
 void labinit( void )
 {
+  TRISE = (volatile int*) 0xbf88610;
+  
   return;
 }
 
