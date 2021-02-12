@@ -2,13 +2,13 @@
 
 int main(void)
 {
-	int switches;
-	TRISD = 0xFF00; // set RD[7:0] to output,
-	// RD[11:8] to input
+	volatile int *push_buttons = (volatile int *)0x8000abc0;
+	volatile int *LED = (volatile int *)0x80007bc0;
 	while (1)
 	{
-		switches = (PORTD >> 8) & 0xF; // Read and mask switches from
-		// RD[11:8]
-		PORTD = switches; // display on the LEDs
+		if ((*push_buttons) & 8)
+			*LED = 0x3f;
+		else
+			*LED = 0x0;
 	}
 }
