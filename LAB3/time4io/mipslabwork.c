@@ -28,7 +28,7 @@ void user_isr(void)
 void labinit(void)
 {
   TRISE = (volatile int*) 0xbf886100;
-  PORTE = (volatile int*) 0xbf886114;
+  PORTE = (volatile int*) 0xbf8861FF;
 
   return;
 }
