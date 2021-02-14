@@ -14,7 +14,10 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-int mytime = 0x5957;
+volatile int *TRIS_E;		// declare the pointers volatile and global
+volatile int *PORT_E;		// DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
+
+int mytime = 0x0001;
 
 char textstring[] = "text, more text, and even more text!";
 
@@ -27,18 +30,44 @@ void user_isr(void)
 /* Lab-specific initialization goes here */
 void labinit(void)
 {
-  TRISE = (volatile int*) 0xbf886100;
-  PORTE = (volatile int*) 0xbf8861FF;
 
+  // 1c
+  // Initialize port E, TRISE has adress 0xbf886100, porte has 0xbf886110
+  // Set *E to address of TRISE, volatile int pointer
+  TRIS_E = (volatile int *)0xbf886100;
+
+  PORT_E = (volatile int *)0xbf886110;
+
+  *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
+
+  
+
+  // The TRISx register bits determine whether a PORTx I/O pin is an input or an output
+  // Set the 8 least significant bits to zero to set them to be output pins
+  // If a data direction bit is ‘1’, the corresponding I/O port pin is an input, 0 is output
+  *TRIS_E = *TRIS_E & 0xff00;
+
+  //1e
+  // Initialize port D, set bits 11-5 as inputs.
+  // DO!!!! Use the definitions in pic32 sheet
+  TRISD = TRISD | 0x0fe0; // changed to | from &
   return;
 }
-  /* This function is called repetitively from the main program */
-  void labwork(void)
-  {
-    delay(1000);
-    time2string(textstring, mytime);
-    display_string(3, textstring);
-    display_update();
-    tick(&mytime);
-    display_image(96, icon);
-  }
+
+/* This function is called repetitively from the main program */
+void labwork(void)
+{
+
+
+  delay(1000);
+  time2string(textstring, mytime);
+  display_string(3, textstring);
+  display_update();
+  tick(&mytime);           
+  display_image(96, icon); 
+
+
+  //1d
+	//Dereference PORTE-pointer and incriment with 1
+	(*PORT_E)++;
+}
