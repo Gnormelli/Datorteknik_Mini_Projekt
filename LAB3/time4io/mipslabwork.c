@@ -17,7 +17,7 @@
 volatile int *TRIS_E;		// declare the pointers volatile and global
 volatile int *PORT_E;		// DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
-int mytime = 0x0001;
+int mytime = 0x0001; // Changed to 0x0001 fomr 5957 to more easily read I/O binaries
 
 char textstring[] = "text, more text, and even more text!";
 
