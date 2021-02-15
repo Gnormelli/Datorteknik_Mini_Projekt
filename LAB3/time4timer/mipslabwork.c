@@ -52,7 +52,9 @@ void labinit(void)
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
   
-
+  T2CON =; 
+  TMR2 =; 
+  PR2 = ((80000000/256)/10);
   
   return;
 }
