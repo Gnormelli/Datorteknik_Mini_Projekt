@@ -69,7 +69,7 @@
   	
   		delayForLoop:
   		
-  			bge $t4, 4711, delayWhileLoop 
+  			bge $t4, 471100, delayWhileLoop 
   			nop
   			addi $t4, $t4, 1
   			j delayForLoop
