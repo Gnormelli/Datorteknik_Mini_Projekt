@@ -58,6 +58,13 @@ void labinit(void)
 void labwork(void)
 {
 
+  int switches =  getsw();
+  int buttons = getbtns();
+
+  if(buttons == 1){
+    mytime = mytime & 0x0fff;
+    mytime = (switches << 12) | mytime;
+  }
 
   delay(1000);
   time2string(textstring, mytime);
