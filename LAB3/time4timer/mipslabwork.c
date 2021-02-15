@@ -14,6 +14,11 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
+#define TMR2PERIOD ((80000000 / 256) / 10)
+#if TMR2PERIOD > 0xffff
+#error "Timer period is too big."
+#endif 
+
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
@@ -50,13 +55,11 @@ void labinit(void)
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
 
-  T2CON = 0x70; // for setting bit 5 - 6 to prescale
-  PR2 = ((80000000 / 256) / 10);
-  
-  TMR2 = 0x0;
+  PR2 =TMR2PERIOD;
+  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
+  TMR2 = 0;
 
   T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
-
   return;
 }
 
