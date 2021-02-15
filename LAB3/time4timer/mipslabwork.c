@@ -14,8 +14,8 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-volatile int *TRIS_E;		// declare the pointers volatile and global
-volatile int *PORT_E;		// DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
+volatile int *TRIS_E; // declare the pointers volatile and global
+volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
 int mytime = 0x0001; // Changed to 0x0001 from 5957 to more easily read I/O binaries
 
@@ -40,8 +40,6 @@ void labinit(void)
 
   *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
 
-  
-
   // The TRISx register bits determine whether a PORTx I/O pin is an input or an output
   // Set the 8 least significant bits to zero to set them to be output pins
   // If a data direction bit is ‘1’, the corresponding I/O port pin is an input, 0 is output
@@ -51,11 +49,14 @@ void labinit(void)
   // Initialize port D, set bits 11-5 as inputs.
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
-  
-  T2CON =; 
-  TMR2 =; 
-  PR2 = ((80000000/256)/10);
-  
+
+  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
+
+  TMR2 = 0x0;
+  PR2 = ((80000000 / 256) / 10);
+
+  T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
+
   return;
 }
 
@@ -63,7 +64,7 @@ void labinit(void)
 void labwork(void)
 {
 
-  int switches =  getsw();
+  int switches = getsw();
   int buttons = getbtns();
 
   /*
@@ -85,31 +86,40 @@ void labwork(void)
   */
 
   //Button 4
-  if(buttons == 4){
+  if (buttons == 4)
+  {
     mytime = mytime & 0x0fff;
     mytime = (switches << 12) | mytime;
   }
   //Button 3
-  if(buttons == 2){
+  if (buttons == 2)
+  {
     mytime = mytime & 0xf0ff;
     mytime = (switches << 8) | mytime;
   }
   //Button 2
-  if(buttons == 1){
+  if (buttons == 1)
+  {
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
 
+  if (IFS(0) & 0x100)
+  {             /* Test time-out event flag */
+    IFS(0) = 0; /* Reset all event flags (crude!) */
+    return (1);
+  }
+  else
+    return (0);
 
   //delay(1000);
   time2string(textstring, mytime);
   display_string(3, textstring);
   display_update();
-  tick(&mytime);           
-  display_image(96, icon); 
-
+  tick(&mytime);
+  display_image(96, icon);
 
   //1d
-	//Dereference PORTE-pointer and incriment with 1
-	(*PORT_E)++;
+  //Dereference PORTE-pointer and incriment with 1
+  (*PORT_E)++;
 }
