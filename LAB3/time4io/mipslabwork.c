@@ -62,17 +62,17 @@ void labwork(void)
   int buttons = getbtns();
 
   //Button 4
-  if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
+  if(buttons == 4){
     mytime = mytime & 0x0fff;
     mytime = (switches << 12) | mytime;
   }
   //Button 3
-  if(buttons == 2 || buttons == 3 || buttons == 6 || buttons == 7){
+  if(buttons == 2){
     mytime = mytime & 0xf0ff;
     mytime = (switches << 8) | mytime;
   }
   //Button 2
-  if(buttons == 1 || buttons == 3 || buttons == 5 || buttons == 7){
+  if(buttons == 1){
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
