@@ -58,6 +58,10 @@ void labinit(void)
 void labwork(void)
 {
 
+  getsw();
+  getbtn();
+
+  if (button == )
 
   delay(1000);
   time2string(textstring, mytime);
