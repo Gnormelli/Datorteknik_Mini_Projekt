@@ -127,9 +127,10 @@ void labwork(void)
     display_image(96, icon);
 
     timeoutcount = 0;
-  }
+  
 
   //1d
   //Dereference PORTE-pointer and incriment with 1
   (*PORT_E)++;
+  }
 }
