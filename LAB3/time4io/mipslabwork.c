@@ -66,6 +66,17 @@ void labwork(void)
     mytime = (switches << 12) | mytime;
   }
 
+  if(buttons == 2 || buttons == 3 || buttons == 6 || buttons == 7){
+    mytime = mytime & 0xf0ff;
+    mytime = (switches << 8) | mytime;
+  }
+
+  if(buttons == 1 || buttons == 3 || buttons == 5 || buttons == 7){
+    mytime = mytime & 0xff0f;
+    mytime = (switches << 4) | mytime;
+  }
+
+
   delay(1000);
   time2string(textstring, mytime);
   display_string(3, textstring);
