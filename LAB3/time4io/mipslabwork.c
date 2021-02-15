@@ -51,6 +51,12 @@ void labinit(void)
   // Initialize port D, set bits 11-5 as inputs.
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
+  
+  T2CON = 0x0;
+  TMR2 = 0x0;
+  PR2 = 0xffff;
+  T2CONSET = 0x7;
+  
   return;
 }
 
@@ -96,7 +102,7 @@ void labwork(void)
   }
 
 
-  delay(1000);
+  //delay(1000);
   time2string(textstring, mytime);
   display_string(3, textstring);
   display_update();
