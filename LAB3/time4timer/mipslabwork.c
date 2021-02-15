@@ -51,7 +51,11 @@ void labinit(void)
   // Initialize port D, set bits 11-5 as inputs.
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
-
+  
+  T2CON =; 
+  TMR2 =; 
+  PR2 = ((80000000/256)/10);
+  
   return;
 }
 
