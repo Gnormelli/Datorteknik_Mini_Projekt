@@ -17,7 +17,7 @@
 #define TMR2PERIOD ((80000000 / 256) / 10)
 #if TMR2PERIOD > 0xffff
 #error "Timer period is too big."
-#endif
+#endif 
 
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
@@ -57,12 +57,12 @@ void labinit(void)
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
 
-  PR2 = TMR2PERIOD;
+  PR2 =TMR2PERIOD;
   T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
   TMR2 = 0;
 
-  T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
-
+  T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
+  
   return;
 }
 
@@ -110,10 +110,15 @@ void labwork(void)
     mytime = (switches << 4) | mytime;
   }
 
+
   if (IFS(0) & 0x100)
-  {
+  {           
     IFSCLR(0) = 0x100;
 
+    timeoutcount++; 
+  }
+
+  if(timeoutcount == 10){
     //delay(1000);
     time2string(textstring, mytime);
     display_string(3, textstring);
@@ -121,8 +126,10 @@ void labwork(void)
     tick(&mytime);
     display_image(96, icon);
 
-    //1d
-    //Dereference PORTE-pointer and incriment with 1
-    (*PORT_E)++;
+    timeoutcount = 0;
   }
+
+  //1d
+  //Dereference PORTE-pointer and incriment with 1
+  (*PORT_E)++;
 }
