@@ -61,7 +61,7 @@ void labwork(void)
   int switches =  getsw();
   int buttons = getbtns();
 
-  if(buttons == 4){
+  if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
     mytime = mytime & 0x0fff;
     mytime = (switches << 12) | mytime;
   }
