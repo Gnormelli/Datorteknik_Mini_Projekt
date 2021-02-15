@@ -22,6 +22,8 @@
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
+int timeoutcount = 0;
+
 int mytime = 0x0001; // Changed to 0x0001 from 5957 to more easily read I/O binaries
 
 char textstring[] = "text, more text, and even more text!";
@@ -111,16 +113,21 @@ void labwork(void)
 
   if (IFS(0) & 0x100)
   {           
-    IFSCLR(0) = 0x100; 
+    IFSCLR(0) = 0x100;
+
+    timeoutcount++; 
   }
 
+  if(timeoutcount == 10){
+    //delay(1000);
+    time2string(textstring, mytime);
+    display_string(3, textstring);
+    display_update();
+    tick(&mytime);
+    display_image(96, icon);
 
-  //delay(1000);
-  time2string(textstring, mytime);
-  display_string(3, textstring);
-  display_update();
-  tick(&mytime);
-  display_image(96, icon);
+    timeoutcount = 0;
+  }
 
   //1d
   //Dereference PORTE-pointer and incriment with 1
