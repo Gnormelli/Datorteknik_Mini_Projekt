@@ -1,0 +1,2 @@
+interrupt_test.S.o: interrupt_test.S /opt/mcb32tools/include/pic32mx.h
+interrupt_test.S /opt/mcb32tools/include/pic32mx.h :
