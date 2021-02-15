@@ -50,12 +50,12 @@ void labinit(void)
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
 
-  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
-
-  TMR2 = 0x0;
+  T2CON = 0x70; // for setting bit 5 - 6 to prescale
   PR2 = ((80000000 / 256) / 10);
+  
+  TMR2 = 0x0;
 
-  T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
+  T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
 
   return;
 }
@@ -104,13 +104,15 @@ void labwork(void)
     mytime = (switches << 4) | mytime;
   }
 
+  /*
   if (IFS(0) & 0x100)
-  {             /* Test time-out event flag */
-    IFS(0) = 0; /* Reset all event flags (crude!) */
+  {             // Test time-out event flag 
+    IFS(0) = 0; // Reset all event flags (crude!) 
     return (1);
   }
   else
     return (0);
+  */
 
   //delay(1000);
   time2string(textstring, mytime);
