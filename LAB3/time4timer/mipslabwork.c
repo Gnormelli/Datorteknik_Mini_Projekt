@@ -60,6 +60,7 @@ void labinit(void)
   TMR2 = 0;
 
   T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
+  
   return;
 }
 
@@ -107,15 +108,12 @@ void labwork(void)
     mytime = (switches << 4) | mytime;
   }
 
-  /*
+
   if (IFS(0) & 0x100)
-  {             // Test time-out event flag 
-    IFS(0) = 0; // Reset all event flags (crude!) 
-    return (1);
+  {           
+    IFSCLR(0) = 0x100; 
   }
-  else
-    return (0);
-  */
+
 
   //delay(1000);
   time2string(textstring, mytime);
