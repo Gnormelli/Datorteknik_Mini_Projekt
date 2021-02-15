@@ -47,7 +47,7 @@ void user_isr(void)
     display_string(3, textstring);
     display_update();
     tick(&mytime);
-    display_image(96, icon);
+    // display_image(96, icon);
 
     timeoutcount = 0;
   }
@@ -81,7 +81,13 @@ void labinit(void)
   TMR2 = 0;
 
   T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
+  
+  // interrupts timer 2
+  // Enable interupt at T2IE bit ie 4-
+  IEC(0) = (1 << 8);
 
+  IPC(2) = 4; /* Values between 4 and 31 will work */
+  
   enable_interrupt(); // Calls funtion from labwork.S
 
   return;
