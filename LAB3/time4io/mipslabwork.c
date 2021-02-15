@@ -58,7 +58,6 @@ void labinit(void)
 void labwork(void)
 {
 
-<<<<<<< HEAD
   int switches =  getsw();
   int buttons = getbtns();
 
