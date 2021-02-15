@@ -96,7 +96,7 @@ void labwork(void)
   }
 
 
-  delay(1000);
+  //delay(1000);
   time2string(textstring, mytime);
   display_string(3, textstring);
   display_update();
