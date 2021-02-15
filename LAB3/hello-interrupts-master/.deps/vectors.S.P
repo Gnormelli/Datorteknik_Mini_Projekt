@@ -1,0 +1,2 @@
+vectors.S.o: vectors.S /opt/mcb32tools/include/pic32mx.h
+vectors.S /opt/mcb32tools/include/pic32mx.h :

@@ -1,0 +1,2 @@
+stubs.c.o: stubs.c /opt/mcb32tools/include/pic32mx.h
+stubs.c /opt/mcb32tools/include/pic32mx.h :
