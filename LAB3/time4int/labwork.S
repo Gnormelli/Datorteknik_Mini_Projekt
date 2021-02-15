@@ -10,6 +10,7 @@
   .global hexasc
   .global delay
   .global time2string
+  .global enable_interrupt
   
 .macro	PUSH reg
 	addi	$sp,$sp,-4
@@ -145,4 +146,9 @@
   	
   	jr	$ra
   	nop
-  
+	  
+enable_interrupt:
+
+	ei			#execute ei instruction(Slide 22, lecture 6, 8.6.5 in book)
+	jr	$ra 
+	nop

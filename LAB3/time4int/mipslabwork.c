@@ -84,6 +84,8 @@ void user_isr(void)
 
     T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
 
+    enable_interrupt();      // Calls funtion from labwork.S
+
     return;
   }
 
