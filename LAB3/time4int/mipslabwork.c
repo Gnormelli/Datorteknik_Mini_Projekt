@@ -38,18 +38,17 @@ void user_isr(void)
     IFSCLR(0) = 0x100;
 
     timeoutcount++;
-  }
+  
+    if (timeoutcount == 10)
+    {
+      //delay(1000);
+      time2string(textstring, mytime);
+      display_string(3, textstring);
+      display_update();
+      tick(&mytime);
 
-  if (timeoutcount == 10)
-  {
-    //delay(1000);
-    time2string(textstring, mytime);
-    display_string(3, textstring);
-    display_update();
-    tick(&mytime);
-    display_image(96, icon);
-
-    timeoutcount = 0;
+      timeoutcount = 0;
+    }
   }
 }
 
@@ -77,10 +76,14 @@ void labinit(void)
   TRISD = TRISD | 0x0fe0;
 
   PR2 = TMR2PERIOD;
-  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
+  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale, 0111 0000
   TMR2 = 0;
 
-  T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
+  T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
+
+  IPCSET(2)= 0x1F;     //write a non-zero priority value. Set IPC as priority 7(highest, 0001 1100), and subpriority as 3(highest 0000 0011), 0001 1111//
+
+  IECSET(0) = 0x0100;    //Write a 1 to T2IE in IEC0
 
   enable_interrupt(); // Calls funtion from labwork.S
 
