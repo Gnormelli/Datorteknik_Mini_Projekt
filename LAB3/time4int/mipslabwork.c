@@ -38,6 +38,7 @@ void user_isr(void)
     IFSCLR(0) = 0x100;
 
     timeoutcount++;
+<<<<<<< HEAD
   
     if (timeoutcount == 10)
     {
@@ -49,6 +50,20 @@ void user_isr(void)
 
       timeoutcount = 0;
     }
+=======
+  }
+
+  if (timeoutcount == 10)
+  {
+    //delay(1000);
+    time2string(textstring, mytime);
+    display_string(3, textstring);
+    display_update();
+    tick(&mytime);
+    // display_image(96, icon);
+
+    timeoutcount = 0;
+>>>>>>> 519c2991c03ed88d2a46a137536761f1caaf4e30
   }
 }
 
@@ -79,12 +94,22 @@ void labinit(void)
   T2CONSET = 0x70; // for setting bit 5 - 6 to prescale, 0111 0000
   TMR2 = 0;
 
+<<<<<<< HEAD
   T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
 
   IPCSET(2)= 0x1F;     //write a non-zero priority value. Set IPC as priority 7(highest, 0001 1100), and subpriority as 3(highest 0000 0011), 0001 1111//
 
   IECSET(0) = 0x0100;    //Write a 1 to T2IE in IEC0
+=======
+  T2CONSET = 0x0000; // 15th bit set to 1, turns on timer
+  
+  // interrupts timer 2
+  // Enable interupt at T2IE bit ie 4-
+  IEC(0) = (1 << 8);
+>>>>>>> 519c2991c03ed88d2a46a137536761f1caaf4e30
 
+  IPC(2) = 4; /* Values between 4 and 31 will work */
+  
   enable_interrupt(); // Calls funtion from labwork.S
 
   return;
