@@ -83,6 +83,8 @@ void labinit(void)
 
   IPCSET(2)= 0x1F;     //write a non-zero priority value. Set IPC as priority 7(highest, 0001 1100), and subpriority as 3(highest 0000 0011), 0001 1111//
 
+  IECSET(0) = 0x0100;    //Write a 1 to T2IE in IEC0
+
   enable_interrupt(); // Calls funtion from labwork.S
 
   return;
