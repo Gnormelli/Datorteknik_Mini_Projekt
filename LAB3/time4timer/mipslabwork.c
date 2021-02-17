@@ -73,7 +73,7 @@ void labwork(void)
   int switches = getsw();
   int buttons = getbtns();
 
-  /*
+  
   //Button 4
   if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
     mytime = mytime & 0x0fff;
@@ -89,8 +89,8 @@ void labwork(void)
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
-  */
-
+  
+  /*
   //Button 4
   if (buttons == 4)
   {
@@ -109,6 +109,27 @@ void labwork(void)
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
+  switch(buttons){
+  //Button 4
+    case(buttons == 4):
+    mytime = mytime & 0x0fff;
+    mytime = (switches << 12) | mytime;
+    break;
+
+    //Button 3
+    case(buttons == 2):
+    mytime = mytime & 0xf0ff;
+    mytime = (switches << 8) | mytime;
+    break;
+
+    //Button 2
+    case(buttons == 1):
+    mytime = mytime & 0xff0f;
+    mytime = (switches << 4) | mytime;
+    break;
+  }
+
+  */
 
 
   if (IFS(0) & 0x100)
