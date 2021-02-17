@@ -50,6 +50,10 @@ void user_isr(void)
       timeoutcount = 0;
     }
   }
+  if(IFS(0) & 0x800){
+    mytime += 3;
+    IFSCLR(0) = 0x800;
+  } 
 }
 
 /* Lab-specific initialization goes here */
@@ -81,9 +85,13 @@ void labinit(void)
 
   T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
 
-  IPCSET(2)= 0x1F;     //write a non-zero priority value. Set IPC as priority 7(highest, 0001 1100), and subpriority as 3(highest 0000 0011), 0001 1111//
+  IPCSET(2)= 0x1B;     //write a non-zero priority value. Set IPC as priority 6, and subpriority as 3(highest 0000 0011), 0001 1111//
 
   IECSET(0) = 0x0100;    //Write a 1 to T2IE in IEC0
+
+  IECSET(0) = 0x800;	//enable interrupt for int2, bit 11
+
+  IPCSET(2) = 0x1C000000; //set priority of switch 2 to 7
 
   enable_interrupt(); // Calls funtion from labwork.S
 
