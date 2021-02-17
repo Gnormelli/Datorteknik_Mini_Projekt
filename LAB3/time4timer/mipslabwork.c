@@ -58,8 +58,8 @@ void labinit(void)
   TRISD = TRISD | 0x0fe0;
 
   PR2 =TMR2PERIOD;
-  T2CONSET = 0x70; // for setting bit 5 - 6 to prescale
-  TMR2 = 0;
+  T2CONSET = 0x70; // for setting bit 4 - 6 to prescale
+  TMR2 = 0;        // Clears the clock before run
 
   T2CONSET = 0x8000; // 15th bit set to 1, turns on timer
   

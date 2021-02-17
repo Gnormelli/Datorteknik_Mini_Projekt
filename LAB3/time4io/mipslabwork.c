@@ -34,9 +34,9 @@ void labinit(void)
   // 1c
   // Initialize port E, TRISE has adress 0xbf886100, porte has 0xbf886110
   // Set *E to address of TRISE, volatile int pointer
-  TRIS_E = (volatile int *)0xbf886100;
+  TRIS_E = (volatile int *)0xbf886100; // outputs
 
-  PORT_E = (volatile int *)0xbf886110;
+  PORT_E = (volatile int *)0xbf886110; // 5th diod is lit 
 
   *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
 
