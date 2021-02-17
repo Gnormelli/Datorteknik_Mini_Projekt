@@ -62,7 +62,7 @@ void labwork(void)
   int switches =  getsw();
   int buttons = getbtns();
 
-/*
+
   //Button 4
   if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
     mytime = mytime & 0x0fff;
@@ -78,8 +78,7 @@ void labwork(void)
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
-*/
-
+/*
   switch(buttons){
   //Button 4
     case(buttons == 4):
@@ -99,6 +98,7 @@ void labwork(void)
     mytime = (switches << 4) | mytime;
     break;
   }
+  */
 
   delay(1000);
   time2string(textstring, mytime);
