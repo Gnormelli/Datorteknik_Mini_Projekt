@@ -98,7 +98,7 @@ void labwork(void)
       mytime = (switches << 8) | mytime;
     }
     
-    /button 2
+    //button 2
     if(buttons & 1){
       mytime = mytime & 0x0fff;
       mytime = (switches << 4) | mytime;
@@ -108,7 +108,7 @@ void labwork(void)
 
   /* Viktor test 2
   switch(buttons){
-    //Button 4
+  //Button 4
     case(buttons & 4):
       mytime = mytime & 0x0fff;
       mytime = (switches << 12) | mytime;
