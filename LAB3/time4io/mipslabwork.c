@@ -57,10 +57,11 @@ void labinit(void)
 void labwork(void)
 {
 
-  /*
+  
   int switches = getsw();
   int buttons = getbtns();
-
+  
+  /*
   //Button 4
   if (buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7)
   {
