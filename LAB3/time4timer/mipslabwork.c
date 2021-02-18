@@ -74,63 +74,34 @@ void labwork(void)
   int buttons = getbtns();
 
   
-  //Button 4
-  if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
-    mytime = mytime & 0x0fff;
-    mytime = (switches << 12) | mytime;
-  }
-  //Button 3
-  if(buttons == 2 || buttons == 3 || buttons == 6 || buttons == 7){
-    mytime = mytime & 0xf0ff;
-    mytime = (switches << 8) | mytime;
-  }
-  //Button 2
-  if(buttons == 1 || buttons == 3 || buttons == 5 || buttons == 7){
-    mytime = mytime & 0xff0f;
-    mytime = (switches << 4) | mytime;
-  }
-  
-  /*
-  //Button 4
-  if (buttons == 4)
-  {
-    mytime = mytime & 0x0fff;
-    mytime = (switches << 12) | mytime;
-  }
-  //Button 3
-  if (buttons == 2)
-  {
-    mytime = mytime & 0xf0ff;
-    mytime = (switches << 8) | mytime;
-  }
-  //Button 2
-  if (buttons == 1)
-  {
-    mytime = mytime & 0xff0f;
-    mytime = (switches << 4) | mytime;
-  }
-  switch(buttons){
-  //Button 4
-    case(buttons == 4):
-    mytime = mytime & 0x0fff;
-    mytime = (switches << 12) | mytime;
-    break;
+  if (buttons)
+  { //Buttons kommer skicka alla inputs/outputs som den tar emot
+
+    // Ex om man trycker 100, kommer endast button 4 att maskas in i mytime då den endast använde 1 if-sats
+    // Om man trycker  101 kommer 4 och 2 att maskas in då den går igenom 2 if-satser
+    // Vet ej hur annorlunda den är från våra tidigare men den tar i åtanke mer i bit för bit.
+
+    //Button 4
+    if (buttons & 0x4) // buttons 100
+    {
+      mytime = mytime & 0x0fff;
+      mytime = (switches << 12) | mytime;
+    }
 
     //Button 3
-    case(buttons == 2):
-    mytime = mytime & 0xf0ff;
-    mytime = (switches << 8) | mytime;
-    break;
+    if (buttons & 0x2)
+    {
+      mytime = mytime & 0xf0ff;
+      mytime = (switches << 8) | mytime;
+    }
 
-    //Button 2
-    case(buttons == 1):
-    mytime = mytime & 0xff0f;
-    mytime = (switches << 4) | mytime;
-    break;
+    //button 2
+    if (buttons & 0x1)
+    {
+      mytime = mytime & 0xff0f;
+      mytime = (switches << 4) | mytime;
+    }
   }
-
-  */
-
 
   if (IFS(0) & 0x100)
   {           
