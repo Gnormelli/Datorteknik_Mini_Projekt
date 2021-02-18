@@ -14,8 +14,8 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-volatile int *TRIS_E;		// declare the pointers volatile and global
-volatile int *PORT_E;		// DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
+volatile int *TRIS_E; // declare the pointers volatile and global
+volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
 int mytime = 0x0001; // Changed to 0x0001 from 5957 to more easily read I/O binaries
 
@@ -36,11 +36,9 @@ void labinit(void)
   // Set *E to address of TRISE, volatile int pointer
   TRIS_E = (volatile int *)0xbf886100; // outputs
 
-  PORT_E = (volatile int *)0xbf886110; // 5th diod is lit 
+  PORT_E = (volatile int *)0xbf886110; // 5th diod is lit
 
   *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
-
-  
 
   // The TRISx register bits determine whether a PORTx I/O pin is an input or an output
   // Set the 8 least significant bits to zero to set them to be output pins
@@ -51,7 +49,7 @@ void labinit(void)
   // Initialize port D, set bits 11-5 as inputs.
   // DO!!!! Use the definitions in pic32 sheet
   TRISD = TRISD | 0x0fe0;
-  
+
   return;
 }
 
@@ -59,26 +57,78 @@ void labinit(void)
 void labwork(void)
 {
 
-  int switches =  getsw();
+  int switches = getsw();
   int buttons = getbtns();
 
-
   //Button 4
-  if(buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7){
+  if (buttons == 4 || buttons == 5 || buttons == 6 || buttons == 7)
+  {
     mytime = mytime & 0x0fff;
     mytime = (switches << 12) | mytime;
   }
   //Button 3
-  if(buttons == 2 || buttons == 3 || buttons == 6 || buttons == 7){
+  if (buttons == 2 || buttons == 3 || buttons == 6 || buttons == 7)
+  {
     mytime = mytime & 0xf0ff;
     mytime = (switches << 8) | mytime;
   }
   //Button 2
-  if(buttons == 1 || buttons == 3 || buttons == 5 || buttons == 7){
+  if (buttons == 1 || buttons == 3 || buttons == 5 || buttons == 7)
+  {
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
-/*
+
+  /* Viktor test 1
+  if(buttons){    //Buttons kommer skicka alla inputs/outputs som den tar emot
+
+                  // Ex om man trycker 100, kommer endast button 4 att maskas in i mytime då den endast använde 1 if-sats
+                  // Om man trycker  101 kommer 4 och 2 att maskas in då den går igenom 2 if-satser
+                  // Vet ej hur annorlunda den är från våra tidigare men den tar i åtanke mer i bit för bit.
+
+    //Button 4
+    if(buttons & 4){                 
+      mytime = mytime & 0x0fff;
+      mytime = (switches << 12) | mytime;
+    }
+    
+    //Button 3
+    if(buttons & 2){
+      mytime = mytime & 0x0fff;
+      mytime = (switches << 8) | mytime;
+    }
+    
+    /button 2
+    if(buttons & 1){
+      mytime = mytime & 0x0fff;
+      mytime = (switches << 4) | mytime;
+    }
+  }
+  */
+
+  /* Viktor test 2
+  switch(buttons){
+    //Button 4
+    case(buttons & 4):
+      mytime = mytime & 0x0fff;
+      mytime = (switches << 12) | mytime;
+      break;
+
+    //Button 3
+    case(buttons & 2):
+      mytime = mytime & 0xf0ff;
+      mytime = (switches << 8) | mytime;
+      break;
+
+    //Button 2
+    case(buttons & 1):
+      mytime = mytime & 0xff0f;
+      mytime = (switches << 4) | mytime;
+      break;
+  }
+  */
+
+  /*
   switch(buttons){
   //Button 4
     case(buttons == 4):
@@ -104,11 +154,10 @@ void labwork(void)
   time2string(textstring, mytime);
   display_string(3, textstring);
   display_update();
-  tick(&mytime);           
-  display_image(96, icon); 
-
+  tick(&mytime);
+  display_image(96, icon);
 
   //1d
-	//Dereference PORTE-pointer and incriment with 1
-	(*PORT_E)++;
+  //Dereference PORTE-pointer and incriment with 1
+  (*PORT_E)++;
 }
