@@ -87,19 +87,19 @@ void labwork(void)
                   // Vet ej hur annorlunda den är från våra tidigare men den tar i åtanke mer i bit för bit.
 
     //Button 4
-    if(buttons & 4){                 
+    if(buttons & 0x4){                 
       mytime = mytime & 0x0fff;
       mytime = (switches << 12) | mytime;
     }
     
     //Button 3
-    if(buttons & 2){
+    if(buttons & 0x2){
       mytime = mytime & 0x0fff;
       mytime = (switches << 8) | mytime;
     }
     
     //button 2
-    if(buttons & 1){
+    if(buttons & 0x1){
       mytime = mytime & 0x0fff;
       mytime = (switches << 4) | mytime;
     }
