@@ -57,6 +57,7 @@ void labinit(void)
 void labwork(void)
 {
 
+  /*
   int switches = getsw();
   int buttons = getbtns();
 
@@ -78,8 +79,8 @@ void labwork(void)
     mytime = mytime & 0xff0f;
     mytime = (switches << 4) | mytime;
   }
-
-  /* Viktor test 1
+  */
+   //Viktor test 1
   if(buttons){    //Buttons kommer skicka alla inputs/outputs som den tar emot
 
                   // Ex om man trycker 100, kommer endast button 4 att maskas in i mytime då den endast använde 1 if-sats
@@ -104,7 +105,7 @@ void labwork(void)
       mytime = (switches << 4) | mytime;
     }
   }
-  */
+  
 
   /* Viktor test 2
   switch(buttons){
