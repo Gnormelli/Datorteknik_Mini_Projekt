@@ -2,7 +2,6 @@
 
 int main()
 {
-
     int n = 3;      // n!
     int i = 1;      // outer loop variable
     int k = n + 1;  // outer loop compare constant
