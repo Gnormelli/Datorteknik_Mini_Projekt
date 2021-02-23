@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
         result = product;
     }
 
-    printf("result == %d\n", result);
+    printf("%d\n", result);
 
     return 0;
 }
