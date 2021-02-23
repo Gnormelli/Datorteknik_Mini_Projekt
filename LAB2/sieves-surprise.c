@@ -45,7 +45,7 @@ void print_sieves(int n)
   } 
   for (int i = 2; i < n; i++) 
   { // if i is primes(a[i]) = true), it wil print all primes up to n 
-    if (a[i] == 0) 
+    if (a[i] == 1) 
     { 
       print_number(i); 
 
