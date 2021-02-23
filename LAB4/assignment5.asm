@@ -27,4 +27,4 @@ loop:
 
 done:
 	beq $0, $0, done		# "stop"
-	add $0, $0, $0
+	add $0, $0, $0			#NOP
