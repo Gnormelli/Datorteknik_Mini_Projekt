@@ -47,6 +47,8 @@ void user_isr(void)
       display_update();
       tick(&mytime);
 
+      (*PORT_E)++;
+
       timeoutcount = 0;
     }
   }
@@ -63,12 +65,13 @@ void labinit(void)
 
   PORT_E = (volatile int *)0xbf886110;
 
-  *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
+  
 
   // The TRISx register bits determine whether a PORTx I/O pin is an input or an output
   // Set the 8 least significant bits to zero to set them to be output pins
   // If a data direction bit is ‘1’, the corresponding I/O port pin is an input, 0 is output
   *TRIS_E = *TRIS_E & 0xff00;
+  *PORT_E = 0x0; // Initialize portE to 0, IS this necessary since
 
   //1e
   // Initialize port D, set bits 11-5 as inputs.
