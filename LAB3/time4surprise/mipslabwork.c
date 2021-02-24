@@ -51,7 +51,7 @@ void user_isr(void)
     }
   }
   if(IFS(0) & 0x800){
-    mytime += 3;
+    mytime += 1;
     IFSCLR(0) = 0x800;
   } 
 }
@@ -89,9 +89,9 @@ void labinit(void)
 
   IECSET(0) = 0x0100;    //Write a 1 to T2IE in IEC0
 
-  IECSET(0) = 0x800;	//enable interrupt for int2, bit 11
+  IECSET(0) = 0x80;	//enable interrupt for int1, bit 7
 
-  IPCSET(2) = 0x1C000000; //set priority of switch 2 to 7
+  IPCSET(1) = 0x1C000000; //set priority of switch 2 to 7
 
   enable_interrupt(); // Calls funtion from labwork.S
 
