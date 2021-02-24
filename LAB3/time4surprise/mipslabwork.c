@@ -47,13 +47,12 @@ void user_isr(void)
       display_update();
       tick(&mytime);
 
-      (*PORT_E)++;
-
       timeoutcount = 0;
     }
   }
   if(IFS(0) & 0x80){
-    mytime += 1;
+    (*PORT_E)++;
+
     IFSCLR(0) = 0x80;
   } 
 }
