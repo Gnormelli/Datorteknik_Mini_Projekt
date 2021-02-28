@@ -2,7 +2,7 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 
-void menu(){
+void menu(void){
     display_string(0, "    ");
     display_string(1,"     PLAY");
     display_string(2,"     HIGHSCORE");
