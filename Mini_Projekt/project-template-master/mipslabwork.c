@@ -14,6 +14,8 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
+// HEJ HEJ
+
 #define TMR2PERIOD ((80000000 / 256) / 10)
 #if TMR2PERIOD > 0xffff
 #error "Timer period is too big."
