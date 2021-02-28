@@ -14,14 +14,13 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-// HEJ HEJ
-
 #define TMR2PERIOD ((80000000 / 256) / 10)
 #if TMR2PERIOD > 0xffff
 #error "Timer period is too big."
 #endif
 
-int gameviews = 0;
+int gameviews = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
+   
  int btncounter = 0;
 
 void user_isr(void)
