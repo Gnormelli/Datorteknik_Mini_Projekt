@@ -33,5 +33,6 @@ void labinit(void)
 /* This function is called repetitively from the main program */
 void labwork(void)
 {
-
+  display_string(0, "Hello World");
+  return;
 }
