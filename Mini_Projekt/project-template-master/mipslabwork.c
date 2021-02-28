@@ -21,8 +21,10 @@
 #error "Timer period is too big."
 #endif
 
+uint8_t screen[128*4] = {0};
+
 int gameviews = 0;
- int btncounter = 0;
+int btncounter = 0;
 
 void user_isr(void)
 {
@@ -32,6 +34,9 @@ void user_isr(void)
 /* Lab-specific initialization goes here */
 void labinit(void)
 {
+  TRISD = TRISD | 0x0fe0;
+
+
   return;
 }
 
@@ -40,20 +45,30 @@ void labwork(void)
 {
   int btn = getbtns();
 
-  if(bnt != 0 && btncounter ==0 )
+  if(btn) 
   {
     btncounter == 1;
 
-    if(gameviews == 0)
+    if(btn & 0x4) // Start game
     {
-      gameviews == 1;
-      display_string(0, "Hello World");
+      gameviews = 1;
+      display_string(0, "     TETRIS");
+      display_string(1,"");
       display_update();
       return;
     }
+    if(btn & 0x2)
+    {
+      gameviews = 2;
+      hello_Github();
+      return;
+    }
+     display_image(0, screen); // update image on scree
   }
 }
-void hello_world();
+void hello_Github()
 {
-
+  display_string(0,"");
+  display_string(1, "Hello Github");
+  display_update();
 }
