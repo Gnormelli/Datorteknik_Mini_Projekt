@@ -55,13 +55,13 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 	
 	display_init();
-	display_string(0, "KTH/ICT lab");
-	display_string(1, "in Computer");
-	display_string(2, "Engineering");
-	display_string(3, "Welcome!");
+	display_string(0, "KTH/ICT lab"); // * can it be used and how?  
+	display_string(1, "in Computer"); // * can it be used and how?
+	display_string(2, "Engineering"); // * can it be used and how?
+	display_string(3, "Welcome!");	  // * can it be used and how?
 	display_update();
 	
-	display_image(96, icon);
+	display_image(96, icon); // * See icon definiton
 	
 	labinit(); /* Do any lab-specific initialization */
 
