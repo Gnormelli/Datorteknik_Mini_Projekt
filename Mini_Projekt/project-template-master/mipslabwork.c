@@ -44,13 +44,16 @@ void labwork(void)
   {
     btncounter == 1;
 
-    if(gameview == 0)
+    if(gameviews == 0)
     {
-      gameview==
+      gameviews == 1;
+      display_string(0, "Hello World");
+      display_update();
+      return;
     }
   }
 }
 void hello_world();
 {
-  display_string(0, "Hello World");
+
 }
