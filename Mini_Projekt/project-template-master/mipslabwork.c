@@ -25,7 +25,7 @@ uint8_t screen[128*4] = {0};
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E;
 
-int gameviews = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
+int views = 1; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
    
 int btncounter = 0;
 
@@ -52,47 +52,9 @@ void labinit(void)
 
 void labwork(void)
 {
-
-  menu();
-  int btn = getbtns();
-
-  if(btn) 
-  {
-    btncounter == 1;
-
-    if(btn) //
-    {
-      gameviews = 1;
-      display_string(0, "    ");
-      display_string(1,"     PLAY");
-      display_string(2,"     HIGHSCORE");
-      display_string(3, "    ");
-      display_update();
-      return;
-    }
-    if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-    {
-      gameviews = 2;
-      play();
-      return;
-    }
-    if(btn & 0x2) //  Highscore
-    {
-      gameviews = 2;
-      highscore();
-      return;
-    }
+  if (views == 1){
+    menu();
   }
 }
 
-void play()
-{
-  display_string(0,"");
-  display_string(1, "");
-  display_update();
-}
-
-void highscore()
-{
-
-}
+// Game starts here
