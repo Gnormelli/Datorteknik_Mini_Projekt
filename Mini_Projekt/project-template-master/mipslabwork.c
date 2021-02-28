@@ -44,6 +44,9 @@ void labinit(void)
 
   TRISD = TRISD | 0x0fe0;
 
+  display_string(2,"TETRIS");
+  display_update();
+
   return;
 }
 
