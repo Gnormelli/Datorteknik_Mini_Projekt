@@ -52,32 +52,47 @@ void labinit(void)
 
 void labwork(void)
 {
+
+  menu();
   int btn = getbtns();
 
   if(btn) 
   {
     btncounter == 1;
 
-    if(btn & 0x4) // Start game
+    if(btn) //
     {
       gameviews = 1;
-      display_string(0, "     TETRIS");
-      display_string(1,"");
+      display_string(0, "    ");
+      display_string(1,"     PLAY");
+      display_string(2,"     HIGHSCORE");
+      display_string(3, "    ");
       display_update();
       return;
     }
-    if(btn & 0x2)
+    if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
       gameviews = 2;
-      hello_Github();
+      play();
       return;
     }
-     display_image(0, screen); // update image on scree
+    if(btn & 0x2) //  Highscore
+    {
+      gameviews = 2;
+      highscore();
+      return;
+    }
   }
 }
-void hello_Github()
+
+void play()
 {
   display_string(0,"");
-  display_string(1, "Hello Github");
+  display_string(1, "");
   display_update();
+}
+
+void highscore()
+{
+
 }
