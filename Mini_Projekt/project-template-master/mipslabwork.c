@@ -19,6 +19,9 @@
 #error "Timer period is too big."
 #endif
 
+volatile int *TRIS_E; // declare the pointers volatile and global
+volatile int *PORT_E;
+
 int gameviews = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
    
  int btncounter = 0;
@@ -31,6 +34,17 @@ void user_isr(void)
 /* Lab-specific initialization goes here */
 void labinit(void)
 {
+  // Initialize port E, TRISE has adress 0xbf886100, porte has 0xbf886110
+  // Set *E to address of TRISE, volatile int pointer
+  TRIS_E = (volatile int *)0xbf886100; 
+  *TRIS_E = *TRIS_E & 0xff00;
+  
+  PORT_E = (volatile int *)0xbf886110; 
+  *PORT_E = 0x0; 
+  
+
+  TRISD = TRISD | 0x0fe0;
+
   return;
 }
 
