@@ -19,6 +19,9 @@
 #error "Timer period is too big."
 #endif
 
+int gameviews = 0;
+ int btncounter = 0;
+
 void user_isr(void)
 {
   return;
@@ -33,6 +36,19 @@ void labinit(void)
 /* This function is called repetitively from the main program */
 void labwork(void)
 {
+  int btn = getbtns();
+
+  if(bnt != 0 && btncounter ==0 )
+  {
+    btncounter == 1;
+
+    if(gameview == 0)
+    {
+      gameview==
+    }
+  }
+}
+void hello_world();
+{
   display_string(0, "Hello World");
-  return;
 }

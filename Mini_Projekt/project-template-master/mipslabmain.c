@@ -55,8 +55,8 @@ int main(void) {
 	SPI2CONSET = 0x8000;
 	
 	display_init();
-	display_string(0, "Welcome to Tetris");
-	//display_string(1, "in Computer");
+	display_string(0, "Welcome to");
+	display_string(1, "TETRIS");
 	//display_string(2, "Engineering");
 	//display_string(3, "Welcome!");
 	display_update();
