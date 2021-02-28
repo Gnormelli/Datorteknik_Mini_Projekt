@@ -63,11 +63,7 @@ void labwork(void)
     if(btn) //
     {
       gameviews = 1;
-      display_string(0, "    ");
-      display_string(1,"     PLAY");
-      display_string(2,"     HIGHSCORE");
-      display_string(3, "    ");
-      display_update();
+      menu();
       return;
     }
     if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
