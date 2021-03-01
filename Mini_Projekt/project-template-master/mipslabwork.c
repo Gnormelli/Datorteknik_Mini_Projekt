@@ -19,14 +19,13 @@
 #error "Timer period is too big."
 #endif
 
-uint8_t screen[128*4] = {0};
+uint8_t screen[128 * 4] = {0};
 
- 
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E;
 
-int views = 1; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
-   
+int views = 1; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
+
 int btncounter = 0;
 
 void user_isr(void)
@@ -37,14 +36,13 @@ void user_isr(void)
 /* Lab-specific initialization goes here */
 void labinit(void)
 {
-  
-  PORT_E = (volatile int *)0xbf886110; 
-  *PORT_E = 0x0; 
-  
+
+  PORT_E = (volatile int *)0xbf886110;
+  *PORT_E = 0x0;
 
   TRISD = TRISD | 0x0fe0;
 
-  display_string(2,"TETRIS");
+  display_string(2, "TETRIS");
   display_update();
 
   return;
@@ -52,7 +50,9 @@ void labinit(void)
 
 void labwork(void)
 {
-  if (views == 1){
+  int btn = getbtns();
+  if (views == 1)
+  {
     menu();
   }
 }
