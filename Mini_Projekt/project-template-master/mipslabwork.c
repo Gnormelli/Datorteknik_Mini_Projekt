@@ -53,10 +53,7 @@ void labinit(void)
 void labwork(void)
 {
   int btn = getbtns();
-  if (views == 1)
-  {
-    menu();
-
+ 
   if(btn) 
   {
     btncounter == 1;
