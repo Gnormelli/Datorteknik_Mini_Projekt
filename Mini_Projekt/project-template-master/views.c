@@ -9,6 +9,7 @@ void menu()
     int btn = 0;
     int btn = getbtns();
 
+    
     if (btn & 0x4) 
     {
         display_string(0, "    ");
@@ -18,7 +19,7 @@ void menu()
         display_update();
     }
     if (btn & 0x2)
-    {
+    
     display_string(0, "    ");
     display_string(1, "  PLAY - BTN2");
     display_string(2, "  HIGHSCORE - BTN3");
