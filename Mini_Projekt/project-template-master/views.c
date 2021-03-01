@@ -5,7 +5,8 @@
 void menu()
 {
     // Improve with a delay
-
+    
+    /*
     int btn = 0;
     int btn = getbtns();
 
@@ -19,7 +20,7 @@ void menu()
         display_update();
     }
     if (btn & 0x2)
-    
+    */
     display_string(0, "    ");
     display_string(1, "  PLAY - BTN2");
     display_string(2, "  HIGHSCORE - BTN3");
@@ -39,18 +40,7 @@ void menu()
 
 }
 void play()
-{
-    // line at the bottom of the screen
-    screen[0] = 255;
-    screen[128] = 255;
-    screen[256] = 255;
-    screen[384] = 255;
-
-    screen[pos] = 15;
-    screen[pos+1] = 15;
-    screen[pos+2] = 15;
-    screen[pos+3] = 15;
-    
+{   
     display_string(0, "");
     display_string(1, "      LETS PLAY");
     display_string(2, "    ");
