@@ -57,4 +57,14 @@ void labwork(void)
   }
 }
 
-// Game starts here
+void play()
+{
+  display_string(0,"");
+  display_string(1, "");
+  display_update();
+}
+
+void highscore()
+{
+
+}
