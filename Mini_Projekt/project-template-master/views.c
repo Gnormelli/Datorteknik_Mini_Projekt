@@ -1,37 +1,24 @@
-<<<<<<< HEAD
 #include <stdint.h>
 #include <pic32mx.h>
 #include "mipslab.h"
 
-void menu(void){
-    display_string(0, "    ");
-    display_string(1,"     PLAY");
-    display_string(2,"     HIGHSCORE");
-    display_string(3, "    ");
-    display_update();
-}
-=======
-
 void menu()
 {
+    display_string(0, "    ");
+    display_string(1, "  PLAY - BTN2");
+    display_string(2, "  HIGHSCORE - BTN3");
+    display_string(3, "    ");
+    display_update();
 
-    int btn = getbtns();
+    /* int btn = getbtns();
 
-    if (btn & 0x2) //
-    {
-
-        display_string(0, "    ");
-        display_string(1, "  PLAY - BTN2");
-        display_string(2, "  HIGHSCORE - BTN3");
-        display_string(3, "    ");
-        display_update();
-    }
     if (btn & 0x4){
         highscore();
     }
     if (btn & 0x1){
         play();
     }
+    */
 
 }
 void play()
@@ -43,7 +30,7 @@ void play()
 
 void highscore()
 {
-    int btn = getbtns();
+    //int btn = getbtns();
 
     display_string(0, "  Highscore ");
     display_string(1, "    ");
@@ -51,8 +38,8 @@ void highscore()
     display_string(3, "    ");
     display_update();
     display_update();
-    if (btn){
+    /*if (btn){
         menu();
     }
+    */
 }
->>>>>>> master

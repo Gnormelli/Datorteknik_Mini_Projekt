@@ -46,26 +46,20 @@ void labinit(void)
 
   display_string(2,"TETRIS");
   display_update();
+  delay(150000);
+  menu();
 
   return;
 }
 
 void labwork(void)
 {
-
-  menu();
   int btn = getbtns();
 
   if(btn) 
   {
     btncounter == 1;
 
-    if(btn) //
-    {
-      gameviews = 1;
-      menu();
-      return;
-    }
     if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
       gameviews = 2;
