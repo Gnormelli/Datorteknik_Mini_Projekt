@@ -42,33 +42,34 @@ void labinit(void)
 
   TRISD = TRISD | 0x0fe0;
 
-  display_string(2, "TETRIS");
-  display_update();
-  delay(3000);
-  menu();
-
   return;
 }
 
 void labwork(void)
 {
   int btn = getbtns();
+  
+  display_string(2, "TETRIS");
+  display_update();
+  delay(3000);
+  menu();
 
-  if(btn) 
+  if(btn!=0 && btncounter == 0) 
   {
     btncounter == 1;
-
-    if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-    {
-      views = 2;
-      play();
-      return;
-    }
-    if(btn & 0x2) //  Highscore
-    {
-      views = 2;
-      highscore();
-      return;
+    if(views==1){
+      if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
+      {
+        views = 2;
+        play();
+        return;
+      }
+      if(btn & 0x2) //  Highscore
+      {
+        views = 5;
+        highscore();
+        return;
+      }
     }
   }
 }
