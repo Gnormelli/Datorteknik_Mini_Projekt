@@ -44,7 +44,7 @@ void labinit(void)
 
   display_string(2, "TETRIS");
   display_update();
-  delay(150000);
+  delay(3000);
   menu();
 
   return;
@@ -71,16 +71,4 @@ void labwork(void)
       return;
     }
   }
-}
-
-void play()
-{
-  display_string(0,"");
-  display_string(1, "");
-  display_update();
-}
-
-void highscore()
-{
-
 }

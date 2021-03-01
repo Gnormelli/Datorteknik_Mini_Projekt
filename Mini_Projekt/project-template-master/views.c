@@ -2,6 +2,7 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 
+
 void menu()
 {
     // Improve with a delay
@@ -50,7 +51,7 @@ void play()
 
 void highscore()
 {
-    //int btn = getbtns();
+    int btn = getbtns();
 
     display_string(0, "  Highscore ");
     display_string(1, "1    ");
@@ -58,8 +59,8 @@ void highscore()
     display_string(3, "3  ");
     display_update();
     display_update();
-    /*if (btn){
+    if (btn & 0x1){
         menu();
     }
-    */
+    
 }
