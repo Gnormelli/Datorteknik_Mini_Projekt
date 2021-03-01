@@ -73,5 +73,12 @@ void labwork(void)
         return;
       }
     }
+    if(views == 5){
+      if(btn & 0x2){
+        views = 1;
+        menu();
+        return;
+      }
+    }
   }
 }
