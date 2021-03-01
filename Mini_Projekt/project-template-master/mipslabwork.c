@@ -25,7 +25,7 @@ uint8_t screen[128*4] = {0};
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E;
 
-int gameviews = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
+int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view  
    
 int btncounter = 0;
 
@@ -62,13 +62,13 @@ void labwork(void)
 
     if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
-      gameviews = 2;
+      views = 2;
       play();
       return;
     }
     if(btn & 0x2) //  Highscore
     {
-      gameviews = 2;
+      views = 2;
       highscore();
       return;
     }
