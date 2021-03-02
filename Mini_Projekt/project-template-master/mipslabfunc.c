@@ -152,8 +152,6 @@ void display_image(int x, const uint8_t *data) {
 		
 		spi_send_recv(x & 0xF);
 		spi_send_recv(0x10 | ((x >> 4) & 0xF));
-    //spi_send_recv(0x0);
-		//spi_send_recv(0x10);
 		
 		DISPLAY_CHANGE_TO_DATA_MODE;
 		
