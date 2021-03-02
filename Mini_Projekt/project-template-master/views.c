@@ -49,6 +49,8 @@ void write_highscore(){
     display_update();
 }
 
+void 
+
 void highscore()
 {
     // int btn = getbtns();
