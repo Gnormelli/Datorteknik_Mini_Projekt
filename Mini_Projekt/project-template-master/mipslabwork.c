@@ -50,6 +50,7 @@ void labwork(void)
   if (btn != 0 && btncounter == 0) // 
   {
     btncounter == 1;
+
     if (views == 1)
     {
       if (btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
@@ -67,7 +68,7 @@ void labwork(void)
     }
     if (views == 5)
     {
-      if (btn & 0x2)
+      if (btn & 0x2) // Back to menu
       {
         views = 1;
         menu();

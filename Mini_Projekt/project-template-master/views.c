@@ -44,7 +44,7 @@ void write_highscore(){
     display_string(0, "  Enter your initials ");
     display_string(1, "");
     display_string(2, "");
-    display_string(3, ""+);
+    display_string(3, "");
     display_update();
     display_update();
 }
