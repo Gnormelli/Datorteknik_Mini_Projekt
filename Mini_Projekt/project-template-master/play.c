@@ -2,16 +2,27 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-#define TMR2PERIOD ((80000000 / 256) / 10)
-#if TMR2PERIOD > 0xffff
-#error "Timer period is too big."
-#endif
+movedown()
+{
+}
 
-uint8_t screen[128 * 4] = {0};
+rightbtn()
+{
+}
 
-volatile int *TRIS_E; // declare the pointers volatile and global
-volatile int *PORT_E;
+leftbtn()
+{
+}
 
-int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
+cleaner()
+{
+}
 
-int btncounter = 0;
+newblock()
+{
+}
+
+rowcomplete()
+{
+}
+

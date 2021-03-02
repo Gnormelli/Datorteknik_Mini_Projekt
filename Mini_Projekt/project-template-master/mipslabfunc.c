@@ -152,11 +152,13 @@ void display_image(int x, const uint8_t *data) {
 		
 		spi_send_recv(x & 0xF);
 		spi_send_recv(0x10 | ((x >> 4) & 0xF));
+    //spi_send_recv(0x0);
+		//spi_send_recv(0x10);
 		
 		DISPLAY_CHANGE_TO_DATA_MODE;
 		
-		for(j = 0; j < 32; j++)
-			spi_send_recv(~data[i*32 + j]);
+		for(j = 0; j < 128; j++)
+			spi_send_recv(data[i*128 + j]);
 	}
 }
 
