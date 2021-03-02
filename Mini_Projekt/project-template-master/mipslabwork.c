@@ -14,16 +14,6 @@
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
 
-#define TMR2PERIOD ((80000000 / 256) / 10)
-#if TMR2PERIOD > 0xffff
-#error "Timer period is too big."
-#endif
-
-uint8_t screen[128 * 4] = {0};
-
-volatile int *TRIS_E; // declare the pointers volatile and global
-volatile int *PORT_E;
-
 int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
 
 int btncounter = 0;
@@ -33,17 +23,6 @@ void user_isr(void)
   return;
 }
 
-/* Lab-specific initialization goes here */
-void labinit(void)
-{
-
-  PORT_E = (volatile int *)0xbf886110;
-  *PORT_E = 0x0;
-
-  TRISD = TRISD | 0x0fe0;
-
-  return;
-}
 
 void labwork(void)
 {
@@ -63,7 +42,8 @@ void labwork(void)
       if(btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
       {
         views = 2;
-        play();
+        countdown();
+        movedown();
         return;
       }
       if(btn & 0x2) //  Highscore
