@@ -11,7 +11,7 @@ int count = 0; // Gustav
 
 
 
-void copycodes(char* text, int* list, int* count) //Viktor
+void copycodes(char *text, int *list, int *count) //Viktor
 {
 
   while (*text != 0) // viktor

@@ -20,7 +20,7 @@ int randomizer = 0;
 
 int i;
 
-char scorescreen[10] = {1, 1, 1, 1, 1, 1, 1, 48, 48, 0};
+char *scorescreen[10] = {1, 1, 1, 1, 1, 1, 1, 48, 48, 0};
 int score = 0;
 
 
@@ -80,14 +80,7 @@ void movedown(void) // move down logic, every tick will make the block fall
 
         if (pos % 128 > 111)
         {
-            display_string(0, "    GAME OVER");
-            display_string(1, "     score:");
-            display_string(3, "");
-            scorescreen[8] = score % 10 + 48;
-            scorescreen[7] = score / 10 + 48;
-            display_string(2, scorescreen);
-            display_update();
-            delay(2000);
+            gameover(scorescreen, score);
         }
 
     }

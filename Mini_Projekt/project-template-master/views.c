@@ -2,11 +2,10 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 
-
 void menu()
 {
     // Improve with a delay
-    
+
     /*
     int btn = 0;
     int btn = getbtns();
@@ -38,9 +37,9 @@ void menu()
         play();
     }
     */
-
 }
-void write_highscore(){
+void write_highscore()
+{
     display_string(0, "  Enter your initials ");
     display_string(1, "");
     display_string(2, "");
@@ -49,7 +48,17 @@ void write_highscore(){
     display_update();
 }
 
-void 
+void gameover(char *scorescreen[], int *score)
+{
+    display_string(0, "    GAME OVER");
+    display_string(1, "     score:");
+    display_string(3, "");
+    *scorescreen[8] = *score % 10 + 48;
+    *scorescreen[7] = *score / 10 + 48;
+    display_string(2, scorescreen);
+    display_update();
+    delay(2000);
+}
 
 void highscore()
 {
@@ -64,6 +73,6 @@ void highscore()
     /* if (btn & 0x1){
         menu();
     }
-    */ // To be added back if Views does not work.
-    
+    */
+    // To be added back if Views does not work.
 }
