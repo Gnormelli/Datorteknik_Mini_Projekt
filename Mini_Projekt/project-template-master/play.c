@@ -4,9 +4,6 @@
 
 #define TMR2PERIOD (80000000 / 256)
 
-volatile int *TRIS_E; // declare the pointers volatile and global
-volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
-
 uint8_t screen[128 * 4] = {0};
 uint8_t screen2[128 * 4] = {0};
 int pos = 220;
@@ -26,52 +23,53 @@ int i;
 char scorescreen[10] = {1, 1, 1, 1, 1, 1, 1, 48, 48, 0};
 int score = 0;
 
+
+
+void play(){
+
+    setup();
+    int gaming = 1;
+    while(gaming == 1){
+    countdown();
+    movedown();    
+    }
+   
+
+}
+
 /* Lab-specific initialization goes here */
-void labinit(void)
+void setup(void)
 {
+  IFS(0) = 0;
 
-    // Initialize port E, TRISE has adress 0xbf886100, porte has 0xbf886110
-    // Set *E to address of TRISE, volatile int pointer
-    TRIS_E = (volatile int *)0xbf886100;
-    PORT_E = (volatile int *)0xbf886110;
+  TMR2 = 0;
+  PR2 = TMR2PERIOD;
+  T2CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
 
-    *PORT_E = 0x0;
-    *TRIS_E = *TRIS_E & 0xff00;
+  // Will help with generating random blocks
+  TMR3 = 0;
+  PR3 = 50000;
+  T3CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
 
-    TRISD = TRISD | 0x0fe0;
+  int pos = 240;
+  // Bottom line
+  screen[0] = 255;
+  screen[128] = 255;
+  screen[256] = 255;
+  screen[384] = 255;
 
-    TRISF = TRISF | 0x1;
+  //Top line
+  screen[118] = 255; // 1111 1111
+  screen[246] = 255;
+  screen[374] = 255;
+  screen[502] = 255;
 
-    IFS(0) = 0;
+  screen[pos] = 15; // 0000 1111
+  screen[pos + 1] = 15;
+  screen[pos + 2] = 15;
+  screen[pos + 3] = 15;
 
-    TMR2 = 0;
-    PR2 = TMR2PERIOD;
-    T2CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
-
-    // Will help with generating random blocks
-    TMR3 = 0;
-    PR3 = 50000;
-    T3CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
-
-    int pos = 240;
-    // Bottom line
-    screen[0] = 255;
-    screen[128] = 255;
-    screen[256] = 255;
-    screen[384] = 255;
-
-    //Top line
-    screen[118] = 255; // 1111 1111
-    screen[246] = 255;
-    screen[374] = 255;
-    screen[502] = 255;
-
-    screen[pos] = 15; // 0000 1111
-    screen[pos + 1] = 15;
-    screen[pos + 2] = 15;
-    screen[pos + 3] = 15;
-
-    return;
+  return;
 }
 
 void movedown(void) // move down logic, every tick will make the block fall
