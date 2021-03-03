@@ -47,8 +47,8 @@ void labwork(void)
     views = 1;
   }
 
-  if (btn != 0 && btncounter == 0) // 
-  {
+  //if (btn != 0 && btncounter == 0) // 
+  //{
     btncounter == 1;
 
     if (views == 1)
@@ -75,5 +75,5 @@ void labwork(void)
         return;
       }
     }
-  }
+  //}
 }

@@ -20,16 +20,18 @@ int randomizer = 0;
 
 int i;
 
-char *scorescreen[10] = {1, 1, 1, 1, 1, 1, 1, 48, 48, 0};
+char scorescreen[10] = {1, 1, 1, 1, 1, 1, 1, 48, 48, 0};
 int score = 0;
 
 
 
 void play(){
-
+    
     setup();
+    
     int gaming = 1;
-    while(gaming == 1){
+    while(gaming == 1)
+    {
         countdown();
         movedown();    
     }
