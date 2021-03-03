@@ -6,8 +6,6 @@ void titleview()
 {
     display_string(2, "TETRIS");
     display_update();
-    delay(3000);
-
 }
 
 void menu()

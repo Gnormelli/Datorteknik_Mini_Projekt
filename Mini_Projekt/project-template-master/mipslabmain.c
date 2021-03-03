@@ -83,46 +83,52 @@ int main(void)
 	int btncounter = 0;
 
 	int swt = getsw();
-	if (views == 0)
-	{
-		titleview();
-		views = 1;
-	}
+
+	titleview();
+	delay(3000);
+	views = 1;
+
 	while (1)
 	{
-		if (swt != 0 && btncounter == 0) //
+		//if (swt != 0 && btncounter == 0) //
+		//{
+		//if (views == 1)
+		//{
+
+		if (views == 1)
 		{
-			if (views == 1)
+			menu();
+			views = 0;
+			return;
+		}
+		if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
+		{
+			views = 2;
+			while (views == 2)
 			{
-				menu();
-				if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-				{
-					views = 2;
-					while (views == 2)
-					{
-						labwork(); /* Do lab-specific things again and again */
-					}
-					PORTDCLR=0x4;
-					return;
-				}
-				if (swt & 0x2) //  Highscore
-				{
-					views = 5;
-					highscore();
-					PORTDCLR = 0x2;
-					return;
-				}
+				labwork(); /* Do lab-specific things again and again */
 			}
-			if (views == 5)
+			PORTDCLR = 0x4;
+			return;
+		}
+		if (swt & 0x2) //  Highscore
+		{
+			views = 5;
+			highscore();
+			PORTDCLR = 0x2;
+			return;
+		}
+		//}
+		if (views == 5)
+		{
+			if (swt & 0x2) // Back to menu
 			{
-				if (swt & 0x2) // Back to menu
-				{
-					views = 1;
-					PORTDCLR = 0x2;
-					return;
-				}
+				views = 1;
+				PORTDCLR = 0x2;
+				return;
 			}
 		}
+		//}
 	}
 	return 0;
 }
