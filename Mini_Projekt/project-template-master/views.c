@@ -24,7 +24,6 @@ void write_highscore()
     display_string(2, "");
     display_string(3, "");
     display_update();
-    display_update();
 }
 
 void gameover(char *scorescreen[], int *score)

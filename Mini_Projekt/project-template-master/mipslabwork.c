@@ -75,6 +75,7 @@ void labwork(void)
       highscore();
       views = 5;
       PORTDCLR = 0x0007;
+      delay(100);
       return;
     }
   }
@@ -84,6 +85,7 @@ void labwork(void)
     {
       views = 1;
       PORTDCLR = 0x0007;
+      delay(100);
       return;
     }
   }
