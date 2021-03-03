@@ -16,7 +16,6 @@ void user_isr(void)
   return;
 }
 
-/* Lab-specific initialization goes here */
 void labinit(void)
 {
 
@@ -32,32 +31,48 @@ void labinit(void)
 
   TRISF = TRISF | 0x1;
 
+  IFS(0) = 0;
+
+  TMR2 = 0;
+  PR2 = TMR2PERIOD;
+  T2CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
+
+  // Will help with generating random blocks
+  TMR3 = 0;
+  PR3 = 50000;     //Arbitrary number, need the remainders of this
+  T3CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
+
+  titleview();
+  delay(3000);
+  views = 1; 
+
   return;
 }
 
 void labwork(void)
 {
   int btn = getbtns();
-  if (views == 0)
-  {
-    display_string(2, "TETRIS");
-    display_update();
-    delay(3000);
-    menu();
-    views = 1;
-  }
 
   if (btn != 0 && btncounter == 0) // 
   {
     btncounter == 1;
 
-    if (views == 1)
+    if (views == 1){
+      menu();
+      views = 0;
+    }
+
+    if (views == 0)
     {
       if (btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
       {
         PORTDCLR=0x0007;
         views = 2;
+        gameboard();
+        while(views==2);
+        {
         play();
+        }
         return;
       }
       if (btn & 0x2) //  Highscore
@@ -74,7 +89,6 @@ void labwork(void)
       {
         PORTDCLR = 0x0007;
         views = 1;
-        menu();
         return;
       }
     }
