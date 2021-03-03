@@ -28,7 +28,7 @@ void labinit(void)
   *PORT_E = 0x0;
   *TRIS_E = *TRIS_E & 0xff00;
 
-  TRISD = TRISD | 0x0fe0;
+  TRISD = TRISD | 0x0ff0;
   
   TRISF = TRISF | 0x1;
 
