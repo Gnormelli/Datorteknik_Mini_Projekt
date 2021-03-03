@@ -2,6 +2,13 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 
+void titleview()
+{
+    display_string(2, "TETRIS");
+    display_update();
+    delay(3000);
+}
+
 void menu()
 {
     // Improve with a delay
