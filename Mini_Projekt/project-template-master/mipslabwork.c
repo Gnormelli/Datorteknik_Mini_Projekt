@@ -25,12 +25,12 @@ void labinit(void)
   TRIS_E = (volatile int *)0xbf886100;
   PORT_E = (volatile int *)0xbf886110;
 
-  *PORT_E = 0xffffff00;
-  *TRIS_E = *TRIS_E & 0xffffff00;
+  *PORT_E = 0x0;
+  *TRIS_E = *TRIS_E & 0xff00;
 
-  TRISD = TRISD | 0x0fe0; // enable port D to input
+  TRISD = TRISD | 0x0fe0;
   
-  TRISF = TRISF | 0x1;  // enable port F to output
+  TRISF = TRISF | 0x1;
 
   return;
 }
