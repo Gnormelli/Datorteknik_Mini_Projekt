@@ -30,8 +30,8 @@ void play(){
     setup();
     int gaming = 1;
     while(gaming == 1){
-    countdown();
-    movedown();    
+        countdown();
+        movedown();    
     }
    
 

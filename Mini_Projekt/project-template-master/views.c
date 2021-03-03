@@ -55,7 +55,7 @@ void gameover(char *scorescreen[], int *score)
     display_string(3, "");
     *scorescreen[8] = *score % 10 + 48;
     *scorescreen[7] = *score / 10 + 48;
-    display_string(2, scorescreen);
+    display_string(2, *scorescreen);
     display_update();
     delay(2000);
 }
