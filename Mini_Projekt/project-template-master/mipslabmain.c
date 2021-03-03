@@ -7,29 +7,32 @@
 
    For copyright and licensing, see file COPYING */
 
-#include <stdint.h>   /* Declarations of uint_32 and the like */
-#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
-#include "mipslab.h"  /* Declatations for these labs */
+#include <stdint.h>	 /* Declarations of uint_32 and the like */
+#include <pic32mx.h> /* Declarations of system-specific addresses etc */
+#include "mipslab.h" /* Declatations for these labs */
 
-int main(void) {
-        /*
+int main(void)
+{
+	/*
 	  This will set the peripheral bus clock to the same frequency
 	  as the sysclock. That means 80 MHz, when the microcontroller
 	  is running at 80 MHz. Changed 2017, as recommended by Axel.
 	*/
-	SYSKEY = 0xAA996655;  /* Unlock OSCCON, step 1 */
-	SYSKEY = 0x556699AA;  /* Unlock OSCCON, step 2 */
-	while(OSCCON & (1 << 21)); /* Wait until PBDIV ready */
+	SYSKEY = 0xAA996655; /* Unlock OSCCON, step 1 */
+	SYSKEY = 0x556699AA; /* Unlock OSCCON, step 2 */
+	while (OSCCON & (1 << 21))
+		;				  /* Wait until PBDIV ready */
 	OSCCONCLR = 0x180000; /* clear PBDIV bit <0,1> */
-	while(OSCCON & (1 << 21));  /* Wait until PBDIV ready */
-	SYSKEY = 0x0;  /* Lock OSCCON */
-	
+	while (OSCCON & (1 << 21))
+		;		  /* Wait until PBDIV ready */
+	SYSKEY = 0x0; /* Lock OSCCON */
+
 	/* Set up output pins */
 	AD1PCFG = 0xFFFF;
 	ODCE = 0x0;
 	TRISECLR = 0xFF;
 	PORTE = 0x0;
-	
+
 	/* Output pins for display signals */
 	PORTF = 0xFFFF;
 	PORTG = (1 << 9);
@@ -37,18 +40,18 @@ int main(void) {
 	ODCG = 0x0;
 	TRISFCLR = 0x70;
 	TRISGCLR = 0x200;
-	
+
 	/* Set up input pins */
 	TRISDSET = (1 << 8);
 	TRISFSET = (1 << 1);
-	
+
 	/* Set up SPI as master */
 	SPI2CON = 0;
 	SPI2BRG = 4;
 	/* SPI2STAT bit SPIROV = 0; */
 	SPI2STATCLR = 0x40;
 	/* SPI2CON bit CKP = 1; */
-        SPI2CONSET = 0x40;
+	SPI2CONSET = 0x40;
 	/* SPI2CON bit MSTEN = 1; */
 	SPI2CONSET = 0x20;
 	/* SPI2CON bit ON = 1; */ /* Turn on SPI */
@@ -63,21 +66,71 @@ int main(void) {
 	// I2C1CONSET = 1 << 13; //SIDL = 1
 	// I2C1CONSET = 1 << 15; // ON = 1
 	// temp = I2C1RCV; //Clear receive buffer <-- needs change!!!!
-	
+
 	display_init();
 	//display_string(0, "Welcome to");
 	//display_string(1, "TETRIS");
 	//display_string(2, "Engineering");
 	//display_string(3, "Welcome!");
 	display_update();
-	
+
 	// display_image(96, icon);
-	
+
 	labinit(); /* Do any lab-specific initialization */
 
-	while( 1 )
+	int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
+
+	int btncounter = 0;
+
+	
+
+
+	int swt = getsw();
+	if (views == 0)
 	{
-	  labwork(); /* Do lab-specific things again and again */
+		display_string(2, "TETRIS");
+		display_update();
+		delay(3000);
+		menu();
+		views = 1;
+	}
+
+	if (swt != 0 && btncounter == 0) //
+	{
+		btncounter == 1;
+
+		if (views == 1)
+		{
+			if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
+			{
+				views = 2;
+				play();
+				PORTDCLR;
+				return;
+			}
+			if (swt & 0x2) //  Highscore
+			{
+				views = 5;
+				highscore();
+				PORTDCLR;
+				return;
+			}
+		}
+		if (views == 5)
+		{
+			if (swt & 0x2) // Back to menu
+			{
+				views = 1;
+				menu();
+				PORTDCLR;
+				return;
+			}
+		}
+	}
+
+	while (1)
+	{
+		labwork(); /* Do lab-specific things again and again */
 	}
 	return 0;
 }
