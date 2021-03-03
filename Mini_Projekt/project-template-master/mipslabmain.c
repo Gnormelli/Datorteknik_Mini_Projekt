@@ -82,55 +82,47 @@ int main(void)
 
 	int btncounter = 0;
 
-	
-
-
 	int swt = getsw();
 	if (views == 0)
 	{
-		display_string(2, "TETRIS");
-		display_update();
-		delay(3000);
-		menu();
+		titleview();
 		views = 1;
 	}
-
-	if (swt != 0 && btncounter == 0) //
-	{
-		btncounter == 1;
-
-		if (views == 1)
-		{
-			if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-			{
-				views = 2;
-				play();
-				PORTDCLR;
-				return;
-			}
-			if (swt & 0x2) //  Highscore
-			{
-				views = 5;
-				highscore();
-				PORTDCLR;
-				return;
-			}
-		}
-		if (views == 5)
-		{
-			if (swt & 0x2) // Back to menu
-			{
-				views = 1;
-				menu();
-				PORTDCLR;
-				return;
-			}
-		}
-	}
-
 	while (1)
 	{
-		labwork(); /* Do lab-specific things again and again */
+		if (swt != 0 && btncounter == 0) //
+		{
+			if (views == 1)
+			{
+				menu();
+				if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
+				{
+					views = 2;
+					while (views == 2)
+					{
+						labwork(); /* Do lab-specific things again and again */
+					}
+					PORTDCLR=0x4;
+					return;
+				}
+				if (swt & 0x2) //  Highscore
+				{
+					views = 5;
+					highscore();
+					PORTDCLR = 0x2;
+					return;
+				}
+			}
+			if (views == 5)
+			{
+				if (swt & 0x2) // Back to menu
+				{
+					views = 1;
+					PORTDCLR = 0x2;
+					return;
+				}
+			}
+		}
 	}
 	return 0;
 }
