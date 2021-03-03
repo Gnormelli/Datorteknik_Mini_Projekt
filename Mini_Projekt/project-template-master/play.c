@@ -59,11 +59,6 @@ void gameboard(void)
     return;
 }
 
-void user_isr(void)
-{
-    return;
-}
-
 void play(void)
 {
     countdown();
