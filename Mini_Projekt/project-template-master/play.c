@@ -26,7 +26,7 @@ int shape = 0; // 0 = Cube, 1 = L-shape , 2 = Z - shape , 3 = Rectangle, 4 = T -
 int block[8] = {0xf, 0, 0, 0, 0, 0, 0, 0};
 int blockTwo[8] = {0};
 
-int gamespeed = 100;
+int gamespeed = 1000;
 
 int randomizer = 0;
 
@@ -108,6 +108,7 @@ void createblock(void)
     
   }
 }
+
 void clearblock(void)
 {
   //Removes previous block iteration
@@ -184,7 +185,7 @@ void user_isr(void)
 
 void newshape(void) // generates a new block at the top of the gamescreen
 {
-  shape = 1; // 0 = Cube, 1 = L-shape , 2 = Z - shape , 3 = Rectangle, 4 = T - shape
+  shape = 2; // 0 = Cube, 1 = L-shape , 2 = Z - shape , 3 = Rectangle, 4 = T - shape
   y = 360;
   for(i = 0; i < 8; i++)
   {
@@ -201,16 +202,15 @@ void newshape(void) // generates a new block at the top of the gamescreen
     block[0] = 0xff;
     block[1] = 0xf;
     block[2] = 0xf;
-    //block[6] = 0xf;
   }
-  /*
+  
   if(shape == 2)   // Z - Shape
   {
-    block[1] = 0xf;
-    block[2] = 0xf;
-    block[4] = 0xf;
-    block[5] = 0xf;
+    block[0] = 0xf;
+    block[1] = 0xff;
+    block[6] = 0xf;
   }
+  /*
   if(shape == 3)    // Rectangle
   {
     block[0] = 0xf;
@@ -218,6 +218,7 @@ void newshape(void) // generates a new block at the top of the gamescreen
     block[2] = 0xf;
     block[3] = 0xf;
   }
+  
   if(shape == 4)    // T- shape
   {
     block[0] = 0xf;
@@ -237,7 +238,7 @@ void movedown(void) // move down logic, every tick will make the block fall
       ((screen[y + 3] & ~block[0]) & block[1]) || ((screen[y + 3 + 128] & ~block[2]) & block[3]))
   {
 
-    if (y % 128 > 107)
+    if (y % 128 > 117)
     {
       display_string(0, "    GAME OVER");
       display_string(1, "     score:");
