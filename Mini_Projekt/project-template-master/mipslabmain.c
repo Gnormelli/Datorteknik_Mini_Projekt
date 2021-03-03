@@ -78,57 +78,13 @@ int main(void)
 
 	labinit(); /* Do any lab-specific initialization */
 
-	int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
-
-	int btncounter = 0;
-
-	int swt = getsw();
-
 	titleview();
 	delay(3000);
 	views = 1;
 
 	while (1)
 	{
-		//if (swt != 0 && btncounter == 0) //
-		//{
-		//if (views == 1)
-		//{
-
-		if (views == 1)
-		{
-			menu();
-			views = 0;
-			return;
-		}
-		if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-		{
-			views = 2;
-			while (views == 2)
-			{
-				labwork(); /* Do lab-specific things again and again */
-			}
-			PORTDCLR = 0x4;
-			return;
-		}
-		if (swt & 0x2) //  Highscore
-		{
-			views = 5;
-			highscore();
-			PORTDCLR = 0x2;
-			return;
-		}
-		//}
-		if (views == 5)
-		{
-			if (swt & 0x2) // Back to menu
-			{
-				views = 1;
-				PORTDCLR = 0x2;
-				return;
-			}
-		}
-		//}
+	  labwork();
 	}
 	return 0;
 }

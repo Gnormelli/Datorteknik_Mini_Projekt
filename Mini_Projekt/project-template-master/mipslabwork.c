@@ -11,6 +11,10 @@ int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over vi
 
 int btncounter = 0;
 
+int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
+
+int btncounter = 0;
+
 void user_isr(void)
 {
   return;
@@ -29,54 +33,55 @@ void labinit(void)
   *TRIS_E = *TRIS_E & 0xff00;
 
   TRISD = TRISD | 0x0ff0;
-  
+
   TRISF = TRISF | 0x1;
+
+  titleview();
+	delay(3000);
+	views = 1;
 
   return;
 }
 
 void labwork(void)
 {
+  //if (swt != 0 && btncounter == 0) //
+  //{
+  //if (views == 1)
+  //{
   int swt = getsw();
-  if (views == 0)
+  if (views == 1)
   {
-    display_string(2, "TETRIS");
-    display_update();
-    delay(3000);
     menu();
-    views = 1;
+    views = 0;
+    return;
   }
-
-  if (swt != 0 && btncounter == 0) // 
+  if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
   {
-    btncounter == 1;
-
-    if (views == 1)
+    views = 2;
+    while (views == 2)
     {
-      if (swt & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-      {
-        views = 2;
-        play();
-        PORTDCLR;
-        return;
-      }
-      if (swt & 0x2) //  Highscore
-      { 
-        views = 5;
-        highscore();
-        PORTDCLR;
-        return;
-      }
+      play(); /* Do lab-specific things again and again */
     }
-    if (views == 5)
+    PORTDCLR = 0x4;
+    return;
+  }
+  if (swt & 0x2) //  Highscore
+  {
+    views = 5;
+    highscore();
+    PORTDCLR = 0x2;
+    return;
+  }
+  //}
+  if (views == 5)
+  {
+    if (swt & 0x2) // Back to menu
     {
-      if (swt & 0x2) // Back to menu
-      {
-        views = 1;
-        menu();
-        PORTDCLR;
-        return;
-      }
+      views = 1;
+      PORTDCLR = 0x2;
+      return;
     }
   }
+  //}
 }
