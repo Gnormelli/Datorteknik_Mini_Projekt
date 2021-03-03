@@ -43,7 +43,7 @@ void labinit(void)
   T3CON = 0x08070; // Turn on 15 bit for timer, bit 4-6 for prescale
 
   titleview();
-  delay(3000);
+  delay(2000);
   views = 1; 
 
   return;
