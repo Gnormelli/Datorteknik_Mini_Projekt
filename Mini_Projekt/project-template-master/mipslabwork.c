@@ -81,7 +81,7 @@ void labwork(void)
   }
   else if (views == 5)
   { 
-    if (getbtns() & 0x4)
+    if (getbtns() & 0x1)
     {
       views = 1;
       PORTDCLR = 0x0007;
