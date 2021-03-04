@@ -60,7 +60,7 @@ void gameboard(void)
     return;
 }
 
-void play(int *score, bool *end)
+void play(bool *end)
 {// Use the pointers for returning score and end for breaking loop.  
     
     countdown();

@@ -70,7 +70,7 @@ void labwork(void)
       gameboard(); 
       while (views == 2)
       {
-        play(&score, &end);
+        play(&end);
       }
       return;
     }
