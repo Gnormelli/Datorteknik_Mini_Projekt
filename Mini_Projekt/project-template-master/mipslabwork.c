@@ -58,7 +58,7 @@ void labwork(void)
     return;
   }
 
-  if (views == 0)
+  else if (views == 0)
   {
     if (getbtns() & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
@@ -81,7 +81,7 @@ void labwork(void)
   }
   else if (views == 5)
   { 
-    if (getbtns() & 0x2)
+    if (getbtns() & 0x4)
     {
       views = 1;
       PORTDCLR = 0x0007;
