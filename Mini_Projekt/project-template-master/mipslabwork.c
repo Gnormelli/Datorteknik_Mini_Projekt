@@ -1,6 +1,7 @@
 #include <stdint.h>  /* Declarations of uint_32 and the like */
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
+#include <stdbool.h>
 
 #define TMR2PERIOD (80000000 / 10 / 256)
 
@@ -10,6 +11,9 @@ volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous 
 int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
 
 int btncounter = 0;
+
+int score = 0;
+bool end = false; 
 
 void user_isr(void)
 {
@@ -63,10 +67,10 @@ void labwork(void)
     if (getbtns() & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
       views = 2;
-      gameboard();
+      gameboard(); 
       while (views == 2)
       {
-        play();
+        play(&score, &end);
       }
       return;
     }

@@ -13,6 +13,7 @@
 #include <stdint.h>  /* Declarations of uint_32 and the like */
 #include <pic32mx.h> /* Declarations of system-specific addresses etc */
 #include "mipslab.h" /* Declatations for these labs */
+#include <stdbool.h>
 
 uint8_t screen[128 * 4] = {0};
 uint8_t screen2[128 * 4] = {0};
@@ -31,7 +32,6 @@ int randomizer = 0;
 int i;
 
 char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
-int score = 0;
 
 void gameboard(void)
 {
@@ -59,8 +59,8 @@ void gameboard(void)
     return;
 }
 
-void play(void)
-{
+void play(int *score, bool *end)
+{// Use the pointers for returning score and end for breaking loop.  
     countdown();
     movedown();
     clearblock();
@@ -73,6 +73,7 @@ void play(void)
         IFS(0) = 0;
         movedown();
     }
+    return; 
 }
 
 /* Lab-specific initialization goes here */
@@ -230,4 +231,5 @@ void cleaner(void) // Removes the "leftovers" from the blocks previous position 
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
+    
 }
