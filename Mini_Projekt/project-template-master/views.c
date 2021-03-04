@@ -41,6 +41,7 @@ void gameover(char *scorescreen[], int *score)
 void highscore()
 {
     display_string(0, "  Highscore ");
+    
     display_string(1, "1:     ");
     display_string(2, "2:     ");
     display_string(3, "3:   ");

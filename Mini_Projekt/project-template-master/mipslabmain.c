@@ -72,7 +72,7 @@ int main(void)
 
 	I2C1CONSET = 1 << 13; //SIDL = 1
 	I2C1CONSET = 1 << 15; // ON = 1
-	temp = I2C1RCV; //Clear receive buffer <-- needs change!!!!
+	// temp = I2C1RCV; //Clear receive buffer <-- needs change!!!!
 
 	display_init();
 	//display_string(0, "Welcome to");
