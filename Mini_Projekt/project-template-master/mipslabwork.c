@@ -13,7 +13,7 @@ int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over vi
 int btncounter = 0;
 
 int score = 0;
-bool end = false; 
+bool end = false;
 
 void user_isr(void)
 {

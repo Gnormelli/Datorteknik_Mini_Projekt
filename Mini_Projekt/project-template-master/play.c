@@ -31,6 +31,7 @@ int randomizer = 0;
 
 int i;
 
+int gamescore = 0; 
 char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
 
 void gameboard(void)
@@ -61,6 +62,7 @@ void gameboard(void)
 
 void play(int *score, bool *end)
 {// Use the pointers for returning score and end for breaking loop.  
+    
     countdown();
     movedown();
     clearblock();
@@ -167,14 +169,8 @@ void movedown(void) // move down logic, every tick will make the block fall
 
         if (y % 128 > 117)
         {
-            display_string(0, "    GAME OVER");
-            display_string(1, "     score:");
-            display_string(3, "");
-            scorescreen[8] = score % 10 + 48;
-            scorescreen[7] = score / 10 + 48;
-            display_string(2, scorescreen);
-            display_update();
-            delay(2000);
+            gameover(gamescore);
+            
         }
         newshape();
     }
@@ -231,5 +227,9 @@ void cleaner(void) // Removes the "leftovers" from the blocks previous position 
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
-    
+    gamescore +=1;
+
+    // game speed increased
+    gamespeed +=1;
+     
 }
