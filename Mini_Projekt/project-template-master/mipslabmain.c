@@ -84,42 +84,7 @@ int main(void)
 	// display_image(96, icon);
 
 	labinit(); /* Do any lab-specific initialization */
-	/*
-  if (views == 1)
-  {
-    menu();
-    views = 0;
-    return;
-  }
 
-  if (views == 0)
-  {
-    if (btn & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
-    {
-      views = 2;
-      gameboard();
-      while (views == 2)
-      {
-        play();
-      }
-      return;
-    }
-    if (btn & 0x2) //  Highscore
-    {
-      views = 5;
-      highscore();
-      return;
-    }
-  }
-  if (views == 5)
-  {
-    if (btn & 0x2)
-    {
-      views = 1;
-      return;
-    }
-  }
-*/
 	while (1)
 	{
 		labwork(); /* Do lab-specific things again and again */
