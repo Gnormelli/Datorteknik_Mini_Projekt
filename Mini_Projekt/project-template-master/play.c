@@ -142,7 +142,10 @@ void movedown(void) // move down logic, every tick will make the block fall
     if ((screen[y - 1] & block[0]) || (screen[y - 1 + 128] & block[2]) ||
         ((screen[y + 3] & ~block[0]) & block[1]) || ((screen[y + 3 + 128] & ~block[2]) & block[3]))
     {
-
+        for (i = 0; i < 4; i++)
+        {
+            block[i] = 0;
+        }
         if (y % 128 > 90)
         {
             gameover(gamescore);
