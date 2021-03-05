@@ -61,13 +61,12 @@ void gameboard(void)
 
 void play(bool *start)
 { // Use the pointers for returning score and end for breaking loop.
-    bool end = false;
+     bool end = false;
     if (end)
     {
         *start = false;
     }
 
-    bool end = *start;
     int btn = getbtns();
     if (btn != 0 && btnpressed == 0)
     {
