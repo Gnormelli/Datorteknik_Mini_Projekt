@@ -41,7 +41,8 @@ void gameboard(void)
     gamescore = 0;
     gamespeed = 1.05;
     // Bottom line for "floor"
-    for (i = 0; i < 512; i++)
+    
+    for (i = 0; i < 4; i++)
     {
         screen[+(128 * i)] = 0xff;
     }
