@@ -13,7 +13,7 @@ int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over vi
 int btncounter = 0;
 
 int score = 0;
-bool end = false;
+bool start = false;
 
 void user_isr(void)
 {
@@ -66,11 +66,11 @@ void labwork(void)
   {
     if (getbtns() & 0x8) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
-      views = 2;
       gameboard(); 
-      while (views == 2)
+      while (start)
       {
-        play(&end);
+        play(&start);
+        views = 1;
       }
       return;
     }
