@@ -17,7 +17,7 @@
 
 uint8_t screen[128 * 4] = {0};
 uint8_t screentemp[128 * 4] = {0};
-int y = 233;
+int y = 240;
 
 int block[4] = {0xf, 0, 0, 0};
 int blocktemp[4] = {0};
@@ -26,9 +26,10 @@ int check = 0;
 
 int btnpressed = 0;
 
-int gamespeed = 60;
+int gamespeed = 0;
 
 int i;
+int k;
 
 int gamescore = 0;
 char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
@@ -42,7 +43,7 @@ void gameboard(void)
     }
 
     //Top line to cut off for preview screen
-    for (i = 0; i < 4; i++)
+    /*for (i = 0; i < 4; i++)
     {
         screen[118 + (128 * i)] = 0xff;
     }
@@ -61,7 +62,7 @@ void play(bool *end)
     {
         btnpressed = 1;
 
-        if ((btn & 0x01) == 1)
+        if ((btn & 0x01) == 1)  //BTN1
             rotate();
 
         if ((btn & 0x02) == 2 && (y < 384 || check == 0)) //BTN2
@@ -117,7 +118,7 @@ void clearblock(void) // Self expalatory
 void newshape(void) // generates a new block at the top of the gamescreen
 {
     shape = TMR3 % 3; // value between [0-2]
-    y = 233;
+    y = 240;
     check = 0;
 
     for (i = 0; i < 4; i++)
@@ -146,7 +147,7 @@ void movedown(void) // move down logic, every tick will make the block fall
         {
             block[i] = 0;
         }
-        if (y % 128 > 90)
+        if (y % 128 > 105)
         {
             gameover(gamescore);
         }
@@ -328,8 +329,6 @@ int cleaner(void) // Removes the "leftovers" from the blocks previous position a
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
-    int k = 0;
-    int j = 0;
     for (i = 0; i < 4; i++)
     {
         if (screen[(y % 128) + (128 * i)] != 255)
@@ -362,9 +361,12 @@ void rowcomplete(void) // Checks if a row is complete. If its true, the player w
             screen[i + (128 * k)] = screentemp[i + (128 * k)];
         }
     }
-    rowcomplete();
+
     gamescore += 1;
 
     // game speed increased
-    gamespeed += 1;
+    gamespeed += 2;
+    PR2 = ((80000000 / 10 / 256) / gamespeed);
+
+    rowcomplete();
 }
