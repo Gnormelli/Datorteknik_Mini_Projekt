@@ -2,14 +2,11 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 #include <stdbool.h>
-
-char highscore1[12] = {8, 8, 8, 8, 8, 8, 49, 46, 8, 48, 48, 0};
-char highscore2[12] = {8, 8, 8, 8, 8, 8, 50, 46, 8, 48, 48, 0};
-char highscore3[12] = {8, 8, 8, 8, 8, 8, 51, 46, 8, 48, 48, 0};
-
-char letter1[12] = {8, 8, 8, 8, 8, 8, 49, 46, 8, 48, 48, 0};
-char letter2[12] = {8, 8, 8, 8, 8, 8, 50, 46, 8, 48, 48, 0};
-char letter3[12] = {8, 8, 8, 8, 8, 8, 51, 46, 8, 48, 48, 0};
+                    // 0,      1,2,       3,    4,      5,      6,     7,       8,       9,     10,   11
+                    //{number,:,blank,letter1,letter2,letter3,blank,hsnumber1,hsnumber2,blank,blank, null}
+char highscore1[12] = {49, 46, 8, 71, 85, 78, 8, 49, 51, 8, 8, 0};
+char highscore2[12] = {50, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};
+char highscore3[12] = {51, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};
 
 int firsths = 0;
 int secondhs = 0;
@@ -64,7 +61,7 @@ void write_highscore()
         }
     }
 
-    display_string(1, letter1 + " " + letter2 + " " + letter3);
+    display_string(1,);
     display_update();
 }
 
@@ -85,12 +82,12 @@ void gameover(int gamescore)
     {
         thirdhs = gamescore;
     }
-    highscore1[9] = firsths / 10 + 48;
-    highscore1[10] = firsths % 10 + 48;
-    highscore2[9] = secondhs / 10 + 48;
-    highscore2[10] = secondhs % 10 + 48;
-    highscore3[9] = thirdhs / 10 + 48;
-    highscore3[10] = thirdhs % 10 + 48;
+    highscore1[7] = firsths / 10 + 48;
+    highscore1[8] = firsths % 10 + 48;
+    highscore2[7] = secondhs / 10 + 48;
+    highscore2[8] = secondhs % 10 + 48;
+    highscore3[7] = thirdhs / 10 + 48;
+    highscore3[8] = thirdhs % 10 + 48;
 
     display_string(0, "    GAME OVER");
     display_string(1, "     score:");
