@@ -363,7 +363,8 @@ void rowcomplete(void) // Checks if a row is complete. If its true, the player w
         }
     }
     rowcomplete();
-    gamescore += 1;
+    // gamescore += 1; gamescore in production
+    gamescore = 5; // gamescore for test
 
     // game speed increased
     gamespeed += 1;
