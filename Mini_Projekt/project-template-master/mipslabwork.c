@@ -3,7 +3,7 @@
 #include "mipslab.h" /* Declatations for these labs */
 #include <stdbool.h>
 
-#define TMR2PERIOD (80000000 / 10 / 256)
+#define TMR2PERIOD (80000000 / 100 / 256)
 
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
@@ -13,7 +13,7 @@ int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over vi
 int btncounter = 0;
 
 int score = 0;
-bool start = false;
+bool start = true;
 
 void user_isr(void)
 {
@@ -66,12 +66,14 @@ void labwork(void)
   {
     if (getbtns() & 0x8) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
-      gameboard(); 
+      gameboard();
       while (start)
       {
-        play(&start);
-        views = 1;
+        play();
+        views = 2;
       }
+      PORTDCLR = 0x0007;
+      delay(100);
       return;
     }
     else if (getbtns() & 0x4) //  Highscore
@@ -83,8 +85,8 @@ void labwork(void)
       return;
     }
   }
-  else if (views == 5)
-  { 
+  else if (views == 5) // GO to menu
+  {
     if (getbtns() & 0x1)
     {
       views = 1;
@@ -92,5 +94,13 @@ void labwork(void)
       delay(100);
       return;
     }
+  }
+  else if (views == 2)
+  {
+    highscore();
+    views = 5;
+    PORTDCLR = 0x0007;
+    delay(100);
+    return;
   }
 }
