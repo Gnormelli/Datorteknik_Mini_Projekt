@@ -7,9 +7,9 @@ char highscore1[12] = {8, 8, 8, 8, 8, 8, 49, 46, 8, 48, 48, 0};
 char highscore2[12] = {8, 8, 8, 8, 8, 8, 50, 46, 8, 48, 48, 0};
 char highscore3[12] = {8, 8, 8, 8, 8, 8, 51, 46, 8, 48, 48, 0};
 
-char initial1[12] = {8, 8, 8, 8, 8, 8, 49, 46, 8, 48, 48, 0};
-char initial2[12] = {8, 8, 8, 8, 8, 8, 50, 46, 8, 48, 48, 0};
-char initial3[12] = {8, 8, 8, 8, 8, 8, 51, 46, 8, 48, 48, 0};
+char letter1[12] = {8, 8, 8, 8, 8, 8, 49, 46, 8, 48, 48, 0};
+char letter2[12] = {8, 8, 8, 8, 8, 8, 50, 46, 8, 48, 48, 0};
+char letter3[12] = {8, 8, 8, 8, 8, 8, 51, 46, 8, 48, 48, 0};
 
 int firsths = 0;
 int secondhs = 0;
@@ -33,39 +33,38 @@ void menu()
 void write_highscore()
 {
     bool write = true;
+    int press = 0;
+
 
     while (write)
     {
         display_string(0, "  Enter your initials ");
         if (getsw())
         { 
+            int btn = getbtns(); 
             //Activate first letter
             if (getsw() & 0x4) // switch 100
             {
+                
                 if (getbtns())
-                mytime = mytime & 0x0fff;
-                mytime = (switches << 12) | mytime;
+                press++;
             }
 
             //Activate second letter
             if (getsw() & 0x2) // switch 010
             {
-                mytime = mytime & 0xf0ff;
-                mytime = (switches << 8) | mytime;
+                
             }
 
             //Activate third letter
             if (getsw() & 0x1) // switch 001
             {
-                mytime = mytime & 0xff0f;
-                mytime = (switches << 4) | mytime;
+                
             }
         }
     }
 
-    display_string(1, "");
-    display_string(2, "");
-    display_string(3, "");
+    display_string(1, letter1 + " " + letter2 + " " + letter3);
     display_update();
 }
 
@@ -105,8 +104,8 @@ void highscore()
 {
     display_string(0, "  Highscore ");
 
-    display_string(1, "1: " + in1 + " " + highscore1);
-    display_string(2, "2: " + in2 + " " + highscore2);
-    display_string(3, "3: " + in2 + " " + highscore2);
+    display_string(1, "1: " + letter1 + " " + highscore1);
+    display_string(2, "2: " + letter2 + " " + highscore2);
+    display_string(3, "3: " + letter2 + " " + highscore2);
     display_update();
 }
