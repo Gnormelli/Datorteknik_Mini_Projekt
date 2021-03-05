@@ -141,6 +141,20 @@ void display_string(int line, char *s) {
 			textbuffer[line][i] = ' ';
 }
 
+void display_string_two(int line, char *s) {
+	int i;
+	if(line < 0 || line >= 4)
+		return;
+	if(!s)
+		return;
+	
+	for(i = 0; i < 16; i++)
+		if(*s) {
+			textbuffer[i][line] = *s;
+			s++;
+		} else
+			textbuffer[i][line]= ' ';
+} 
 void display_image(int x, const uint8_t *data) {
 	int i, j;
 	

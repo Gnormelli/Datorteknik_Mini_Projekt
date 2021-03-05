@@ -38,13 +38,13 @@ void gameboard(void)
     // Bottom line for "floor"
     for (i = 0; i < 4; i++)
     {
-        screen[0 + (128 * i)] = 0xff;
+        screen[ + (128 * i)] = 0xff;
     }
 
     //Top line to cut off for preview screen
     for (i = 0; i < 4; i++)
     {
-        screen[120 + (128 * i)] = 0xff;
+        screen[118 + (128 * i)] = 0xff;
     }
 
     countdown();

@@ -14,7 +14,7 @@ int thirdhs = 0;
 
 void titleview()
 {
-    display_string(2, "TETRIS");
+    display_string_two(2, "TETRIS");
     display_update();
 }
 
