@@ -3,17 +3,17 @@
 #include "mipslab.h" /* Declatations for these labs */
 #include <stdbool.h>
 
-#define TMR2PERIOD (80000000 / 100 / 256)
+#define TMR2PERIOD (80000000 / 50 / 256)
 
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
 
-int views = 0; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
+int views = 1; // 0 - title view, 1 - Menu view, 2 - Game view, 3 - Game over view, 4 - Write high score view, 5 - High Score view
 
 int btncounter = 0;
 
 int score = 0;
-bool start = false;
+bool start = true;
 
 void user_isr(void)
 {
@@ -48,13 +48,14 @@ void labinit(void)
 
   titleview();
   delay(2000);
-  views = 1;
 
+  
   return;
 }
 
 void labwork(void)
 {
+  
   if (views == 1)
   {
     menu();
@@ -66,12 +67,14 @@ void labwork(void)
   {
     if (getbtns() & 0x8) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
-
-      gameboard(); 
+      views = 1;
+      gameboard();
       while (start)
       {
-        play(&start);
+        play();
       }
+      PORTDCLR = 0x0007;
+      delay(100);
       return;
     }
     else if (getbtns() & 0x4) //  Highscore
@@ -83,8 +86,8 @@ void labwork(void)
       return;
     }
   }
-  else if (views == 5)
-  { 
+  else if (views == 5) // GO to menu
+  {
     if (getbtns() & 0x1)
     {
       views = 1;
@@ -92,5 +95,13 @@ void labwork(void)
       delay(100);
       return;
     }
+  }
+  else if (views == 2)
+  {
+    highscore();
+    views = 5;
+    PORTDCLR = 0x0007;
+    delay(100);
+    return;
   }
 }
