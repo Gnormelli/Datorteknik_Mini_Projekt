@@ -61,7 +61,7 @@ void write_highscore()
         }
     }
 
-    display_string(1,);
+    // display_string(1,);
     display_update();
 }
 

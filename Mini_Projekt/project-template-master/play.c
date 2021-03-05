@@ -84,7 +84,7 @@ void createblock(void)
     for (i = 0; i < 4; i++)
     {
         screen[y + i] += block[0];           // creates block part A
-        screen[y + 4 + i] += block[1];       //  creates block part B
+        screen[y + 4 + i] += block[1];       // creates block part B
         screen[y + 8 + i] += block[2];       // creates block part C
         screen[y + 12 + i] += block[3];      // creates block part J
         screen[y + 128 + i] += block[4];     // creates block part D
