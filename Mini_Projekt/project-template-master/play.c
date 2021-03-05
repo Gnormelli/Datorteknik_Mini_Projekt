@@ -26,7 +26,7 @@ int check = 0;
 
 int btnpressed = 0;
 
-float gamespeed = 1.2;
+float gamespeed = 1.05;
 
 int i;
 int k;
@@ -36,6 +36,10 @@ char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
 
 void gameboard(void)
 {
+    for (i = 0; i < 512; i++)
+        screen[i] = 0;
+    gamescore = 0;
+    gamespeed = 1.05;
     // Bottom line for "floor"
     for (i = 0; i < 4; i++)
     {

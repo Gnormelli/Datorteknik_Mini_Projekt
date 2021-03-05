@@ -2,21 +2,24 @@
 #include <pic32mx.h>
 #include "mipslab.h"
 #include <stdbool.h>
-                    // 0,      1,2,       3,    4,      5,      6,     7,       8,       9,     10,   11
+                    // 0,     1, 2,       3,    4,      5,      6,     7,       8,       9,     10,   11
                     //{number,:,blank,letter1,letter2,letter3,blank,hsnumber1,hsnumber2,blank,blank, null}
-char highscore1[12] = {49, 46, 8, 71, 85, 78, 8, 49, 51, 8, 8, 0};
-char highscore2[12] = {50, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};
+char highscore1[12] = {49, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};
+char highscore2[12] = {50, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};   //index 3 and 4
 char highscore3[12] = {51, 46, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0};
 
 int firsths = 0;
 int secondhs = 0;
 int thirdhs = 0;
 
-char scoreboard[8] = {8,8,8,8,8,48,48,0};
+char scoreboard[9] = {8,8,8,8,8,8,48,48,0};
 
 void titleview()
-{
-    display_string(2, "TETRIS");
+{   
+    display_string(0,"          ");
+    display_string(1, "     TETRIS");
+    display_string(2,"          ");
+    display_string(3,"          ");
     display_update();
 }
 
@@ -69,36 +72,45 @@ void write_highscore()
 
 void gameover(int gamescore)
 {
-    /*if (gamescore > firsths)
+    int score = gamescore;
+
+    if (score > firsths)
     {
         thirdhs = secondhs;
         secondhs = firsths;
-        firsths = gamescore;
+        firsths = score;
     }
-    else if (gamescore > secondhs)
+    else if (score > secondhs)
     {
         thirdhs = secondhs;
-        secondhs = gamescore;
+        secondhs = score;
     }
-    else if (gamescore > thirdhs)
+    else if (score > thirdhs)
     {
-        thirdhs = gamescore;
+        thirdhs = score;
     }
-    highscore1[7] = firsths / 10 + 48;
-    highscore1[8] = firsths % 10 + 48;
-    highscore2[7] = secondhs / 10 + 48;
-    highscore2[8] = secondhs % 10 + 48;
-    highscore3[7] = thirdhs / 10 + 48;
-    highscore3[8] = thirdhs % 10 + 48;*/
+    highscore1[3] = firsths / 10 + 48;
+    highscore1[4] = firsths % 10 + 48;
+    highscore2[3] = secondhs / 10 + 48;
+    highscore2[4] = secondhs % 10 + 48;
+    highscore3[3] = thirdhs / 10 + 48;
+    highscore3[4] = thirdhs % 10 + 48;
 
-    scoreboard();
+    scoreboard[6] = score /10 + 48;
+    scoreboard[7] = score % 10 + 48;
 
     display_string(0, "    GAME OVER");
     display_string(1, "     score:");
     display_string(3, "");
-    display_string(2, gamescore);
+    display_string(2, scoreboard);
     display_update();
-    delay(2000);
+
+    score = 0;
+
+    delay(3000);
+    highscore();
+    delay(3000);
+    main();
 }
 
 void highscore()
@@ -107,6 +119,6 @@ void highscore()
 
     display_string(1, highscore1);
     display_string(2, highscore2);
-    display_string(3, highscore2);
+    display_string(3, highscore3);
     display_update();
 }
