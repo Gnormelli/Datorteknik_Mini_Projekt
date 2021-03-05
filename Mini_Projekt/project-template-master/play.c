@@ -46,7 +46,7 @@ void gameboard(void)
     /*for (i = 0; i < 4; i++)
     {
         screen[118 + (128 * i)] = 0xff;
-    }
+    }*/
 
     countdown();
     newshape();
