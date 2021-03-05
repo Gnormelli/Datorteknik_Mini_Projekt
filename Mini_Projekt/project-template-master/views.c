@@ -12,6 +12,8 @@ int firsths = 0;
 int secondhs = 0;
 int thirdhs = 0;
 
+char scoreboard[8] = {8,8,8,8,8,48,48,0};
+
 void titleview()
 {
     display_string(2, "TETRIS");
@@ -67,7 +69,7 @@ void write_highscore()
 
 void gameover(int gamescore)
 {
-    if (gamescore > firsths)
+    /*if (gamescore > firsths)
     {
         thirdhs = secondhs;
         secondhs = firsths;
@@ -87,7 +89,9 @@ void gameover(int gamescore)
     highscore2[7] = secondhs / 10 + 48;
     highscore2[8] = secondhs % 10 + 48;
     highscore3[7] = thirdhs / 10 + 48;
-    highscore3[8] = thirdhs % 10 + 48;
+    highscore3[8] = thirdhs % 10 + 48;*/
+
+    scoreboard();
 
     display_string(0, "    GAME OVER");
     display_string(1, "     score:");

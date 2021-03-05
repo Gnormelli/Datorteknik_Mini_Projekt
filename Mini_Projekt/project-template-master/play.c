@@ -155,6 +155,7 @@ void movedown(bool *end) // move down logic, every tick will make the block fall
         if (y % 128 > 105)
         {
             gameover(gamescore);
+            delay(3000);
             *end = false;
         }
         rowcomplete();
