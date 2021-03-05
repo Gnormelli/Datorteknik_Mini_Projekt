@@ -64,7 +64,7 @@ void labwork(void)
 
   else if (views == 0)
   {
-    if (getbtns() & 0x4) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
+    if (getbtns() & 0x8) // Start to play the game, WIP, needs F port, mapped to BTN3 for now
     {
       views = 2;
       gameboard(); 
@@ -74,7 +74,7 @@ void labwork(void)
       }
       return;
     }
-    else if (getbtns() & 0x2) //  Highscore
+    else if (getbtns() & 0x4) //  Highscore
     {
       highscore();
       views = 5;

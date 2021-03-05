@@ -22,8 +22,8 @@ void menu()
 {
 
     display_string(0, "    ");
-    display_string(1, "  PLAY - BTN4");
-    display_string(2, "  HIGHSCORE - BTN3");
+    display_string(1, "PLAY - BTN4");
+    display_string(2, "HIGHSCORE - BTN3");
     display_string(3, "    ");
     display_update();
 }
@@ -99,7 +99,7 @@ void gameover(int gamescore)
 
 void highscore()
 {
-    display_string(0, "Highscore ");
+    display_string(0, "Highscore    BTN1");
 
     display_string(1, highscore1);
     display_string(2, highscore2);
