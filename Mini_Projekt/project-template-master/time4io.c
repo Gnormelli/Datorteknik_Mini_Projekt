@@ -20,5 +20,10 @@ int getsw(void)  // called as "getsw();"
  */
 int getbtns(void) // called as "getbtns();"
 {
-    return (PORTD >> 5) & 0x0007;
+    int getbtns = 0;
+    getbtns = PORTD & 0x0e0;
+    getbtns = getbtns >> 4;
+    if ((PORTF >> 1) & 1)
+        getbtns = 1;
+    return getbtns;
 }

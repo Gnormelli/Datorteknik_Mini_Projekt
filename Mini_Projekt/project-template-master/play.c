@@ -24,129 +24,117 @@ int blocktemp[4] = {0};
 int shape = 0; // 0 = Cube, 1 = L-shape , 2 = Z - shape , 3 = Rectangle, 4 = T - shape
 int check = 0;
 
-int btncounter = 0;
+int btnpressed = 0;
 
-int gamespeed = 30;
+int gamespeed = 60;
 
-int views = -1; // -1 - title, 0 - startscreen, 1 - running, 2 - game over, 3 - highscore
 int i;
 
-int gamescore = 0; 
+int gamescore = 0;
 char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
 
 void gameboard(void)
 {
-     // Bottom line for "floor"
-  for (i = 0; i < 4; i++)
-  {
-    screen[0 + (128 * i)] = 0xff;
-  }
+    // Bottom line for "floor"
+    for (i = 0; i < 4; i++)
+    {
+        screen[0 + (128 * i)] = 0xff;
+    }
 
-  //Top line to cut off for preview screen
-  for (i = 0; i < 4; i++)
-  {
-    screen[120 + (128 * i)] = 0xff;
-  }
+    //Top line to cut off for preview screen
+    for (i = 0; i < 4; i++)
+    {
+        screen[120 + (128 * i)] = 0xff;
+    }
 
-  countdown();
-  newshape();
+    countdown();
+    newshape();
 
-  return;
+    return;
 }
 
 void play(bool *end)
-{// Use the pointers for returning score and end for breaking loop.  
-    
+{ // Use the pointers for returning score and end for breaking loop.
+
     int btn = getbtns();
-  if (btn != 0 && btncounter == 0)
-  {
-    btncounter = 1;
+    if (btn != 0 && btnpressed == 0)
+    {
+        btnpressed = 1;
 
-    if ((btn & 0x01) == 1)
-      rotate();
+        if ((btn & 0x01) == 1)
+            rotate();
 
-    if ((btn & 0x02) == 2 && (y < 384 || check == 0)) //BTN2
-      moveright();
+        if ((btn & 0x02) == 2 && (y < 384 || check == 0)) //BTN2
+            moveright();
 
-    if ((btn & 0x08) == 8 && (y > 127 || check == 1)) //BTN4
-      moveleft();
-  }
-  else if (btn == 0)
-    btncounter = 0;
+        if ((btn & 0x08) == 8 && (y > 127 || check == 1)) //BTN4
+            moveleft();
+    }
+    else if (btn == 0)
+        btnpressed = 0;
 
-  display_image(0, screen); // update image on screen
+    display_image(0, screen); // update image on screen
 
-  if (IFS(0))
-  {
-    IFS(0) = 0;
-    movedown();
-  }
-    
-    clearblock();
-    createblock();
-    newshape();
-
-    display_image(0, screen);
     if (IFS(0))
     {
         IFS(0) = 0;
         movedown();
     }
-    return; 
+    return;
 }
 
 void createblock(void) // Self explanatory
 {
-  for (i = 0; i < 4; i++)
-  {
-    screen[y + i] += block[0];     // creates block part A
-    screen[y + 4 + i] += block[1]; //  creates block part B
-    /*screen[y + 8 + i] += block[2];       // creates block part C
+    for (i = 0; i < 4; i++)
+    {
+        screen[y + i] += block[0];     // creates block part A
+        screen[y + 4 + i] += block[1]; //  creates block part B
+        /*screen[y + 8 + i] += block[2];       // creates block part C
     screen[y + 12 + i] += block[3];      // creates block part J*/
-    screen[y + 128 + i] += block[2];     // creates block part D
-    screen[y + 128 + 4 + i] += block[3]; // creates block part E
-    /*screen[y + 128 + 8 + i] += block[6]; // creates block part F
+        screen[y + 128 + i] += block[2];     // creates block part D
+        screen[y + 128 + 4 + i] += block[3]; // creates block part E
+                                             /*screen[y + 128 + 8 + i] += block[6]; // creates block part F
     screen[y + 256 + i] += block[7];     // creates block part G*/
-  }
+    }
 }
 
 void clearblock(void) // Self expalatory
 {
-  //Removes previous block iteration
-  for (i = 0; i < 4; i++)
-  {
-    screen[y + i] -= block[0];     // clears block part A
-    screen[y + 4 + i] -= block[1]; // clears block part B
-    /*screen[y + 8 + i] -= block[2];       // clears block part C
+    //Removes previous block iteration
+    for (i = 0; i < 4; i++)
+    {
+        screen[y + i] -= block[0];     // clears block part A
+        screen[y + 4 + i] -= block[1]; // clears block part B
+        /*screen[y + 8 + i] -= block[2];       // clears block part C
     screen[y + 12 + i] -= block[3];      // clears block part J*/
-    screen[y + 128 + i] -= block[2];     // clears block part D
-    screen[y + 128 + 4 + i] -= block[3]; // clears block part E
-    /* screen[y + 128 + 8 + i] -= block[6]; // clears block part F
+        screen[y + 128 + i] -= block[2];     // clears block part D
+        screen[y + 128 + 4 + i] -= block[3]; // clears block part E
+                                             /* screen[y + 128 + 8 + i] -= block[6]; // clears block part F
     screen[y + 256 + i] -= block[7];     // clears block part G*/
-  }
+    }
 }
 
 void newshape(void) // generates a new block at the top of the gamescreen
 {
-  shape = TMR3 % 3; // value between [0-2]
-  y = 233;
-  check = 0;
+    shape = TMR3 % 3; // value between [0-2]
+    y = 233;
+    check = 0;
 
-  for (i = 0; i < 4; i++)
-  {
-    block[i] = 0;
-  }
-  block[0] = 0xff;
+    for (i = 0; i < 4; i++)
+    {
+        block[i] = 0;
+    }
+    block[0] = 0xff;
 
-  if (shape == 1)
-  {
-    block[1] = 0xff;
-  }
-  if (shape == 2)
-  {
-    block[1] = 0xf;
-  }
-  createblock();
+    if (shape == 1)
+    {
+        block[1] = 0xff;
+    }
+    if (shape == 2)
+    {
+        block[1] = 0xf;
+    }
+    createblock();
 }
 
 void movedown(void) // move down logic, every tick will make the block fall
@@ -155,11 +143,11 @@ void movedown(void) // move down logic, every tick will make the block fall
         ((screen[y + 3] & ~block[0]) & block[1]) || ((screen[y + 3 + 128] & ~block[2]) & block[3]))
     {
 
-        if (y % 128 > 117)
+        if (y % 128 > 90)
         {
             gameover(gamescore);
-            
         }
+        rowcomplete();
         newshape();
     }
     else
@@ -199,182 +187,182 @@ void countdown(void) // Countdown for the game
 
 void moveright(void) // move right logic, if BTN1 is pressed, the block will move right
 {
-  if (y >= 384) // && (shape && !(block[0] == 15 && block[1] == 15))
-    return;
+    if (y >= 384) // && (shape && !(block[0] == 15 && block[1] == 15))
+        return;
 
-  for (i = 0; i < 4; i++)
-    blocktemp[i] = 0;
-
-  if (check == 0)
-  {
-    blocktemp[0] = ((block[0] & 0xf) << 4);
-    blocktemp[1] = ((block[1] & 0xf) << 4);
-    blocktemp[2] = ((block[0] & 0xf0) >> 4); // Keeps the block intact in movemnent, or else parts of the blocks will dissapear
-    blocktemp[3] = ((block[1] & 0xf0) >> 4);
-  }
-  else
-  {
-    blocktemp[2] = (block[0] >> 4) | (block[2] << 4);
-    blocktemp[3] = (block[1] >> 4) | (block[3] << 4);
-  }
-
-  cleaner();
-
-  if (check == 0)
     for (i = 0; i < 4; i++)
-      block[i] = blocktemp[i];
-  else
-  {
-    block[0] = blocktemp[2];
-    block[1] = blocktemp[3];
-    block[2] = 0;
-    block[3] = 0;
-  }
+        blocktemp[i] = 0;
 
-  if (check == 0)
-  {
-    createblock();
-    check = 1;
-  }
-  else
-  {
-    check = 0;
-    y += 128;
-    createblock();
-  }
+    if (check == 0)
+    {
+        blocktemp[0] = ((block[0] & 0xf) << 4);
+        blocktemp[1] = ((block[1] & 0xf) << 4);
+        blocktemp[2] = ((block[0] & 0xf0) >> 4); // Keeps the block intact in movemnent, or else parts of the blocks will dissapear
+        blocktemp[3] = ((block[1] & 0xf0) >> 4);
+    }
+    else
+    {
+        blocktemp[2] = (block[0] >> 4) | (block[2] << 4);
+        blocktemp[3] = (block[1] >> 4) | (block[3] << 4);
+    }
+
+    cleaner();
+
+    if (check == 0)
+        for (i = 0; i < 4; i++)
+            block[i] = blocktemp[i];
+    else
+    {
+        block[0] = blocktemp[2];
+        block[1] = blocktemp[3];
+        block[2] = 0;
+        block[3] = 0;
+    }
+
+    if (check == 0)
+    {
+        createblock();
+        check = 1;
+    }
+    else
+    {
+        check = 0;
+        y += 128;
+        createblock();
+    }
 }
 
 void moveleft(void) // move left logic, if BTN2 is pressed, the block will move left
 {
-  if (y < 128 && (check == 0))
-    return;
+    if (y < 128 && (check == 0))
+        return;
 
-  for (i = 0; i < 4; i++)
-    blocktemp[i] = 0;
-
-  if (check == 0)
-  {
-    blocktemp[0] = ((block[0] & 0xf) << 4);
-    blocktemp[1] = ((block[1] & 0xf) << 4);
-    blocktemp[2] = ((block[0] & 0xf0) >> 4) | (block[2] << 4);
-    blocktemp[3] = ((block[1] & 0xf0) >> 4) | (block[3] << 4);
-  }
-  else
-  {
-    blocktemp[0] = (block[0] >> 4) | (block[2] << 4);
-    blocktemp[1] = (block[1] >> 4) | (block[3] << 4);
-  }
-
-  cleaner();
-
-  if (check == 0)
     for (i = 0; i < 4; i++)
-      block[i] = blocktemp[i];
-  else
-  {
-    block[0] = blocktemp[0];
-    block[1] = blocktemp[1];
-    block[2] = 0;
-    block[3] = 0;
-  }
+        blocktemp[i] = 0;
 
-  if (check == 0)
-  {
-    y -= 128;
-    createblock();
-    check = 1;
-  }
-  else
-  {
-    check = 0;
-    createblock();
-  }
+    if (check == 0)
+    {
+        blocktemp[0] = ((block[0] & 0xf) << 4);
+        blocktemp[1] = ((block[1] & 0xf) << 4);
+        blocktemp[2] = ((block[0] & 0xf0) >> 4) | (block[2] << 4);
+        blocktemp[3] = ((block[1] & 0xf0) >> 4) | (block[3] << 4);
+    }
+    else
+    {
+        blocktemp[0] = (block[0] >> 4) | (block[2] << 4);
+        blocktemp[1] = (block[1] >> 4) | (block[3] << 4);
+    }
+
+    cleaner();
+
+    if (check == 0)
+        for (i = 0; i < 4; i++)
+            block[i] = blocktemp[i];
+    else
+    {
+        block[0] = blocktemp[0];
+        block[1] = blocktemp[1];
+        block[2] = 0;
+        block[3] = 0;
+    }
+
+    if (check == 0)
+    {
+        y -= 128;
+        createblock();
+        check = 1;
+    }
+    else
+    {
+        check = 0;
+        createblock();
+    }
 }
 
 void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
 {
-  for (i = 0; i < 4; i++)
-  {
-    blocktemp[i] = 0;
-  }
+    for (i = 0; i < 4; i++)
+    {
+        blocktemp[i] = 0;
+    }
 
-  if (check == 0)
-  {
-    blocktemp[0] = ((block[0] & 0xf0) >> 4) | (block[1] & 0xf0);
-    blocktemp[1] = ((block[1] & 0xf) << 4) | (block[0] & 0xf);
-  }
-  else
-  {
-    blocktemp[0] = block[2] << 4;
-    blocktemp[1] = block[0];
-    blocktemp[2] = block[3];
-    blocktemp[3] = block[1] >> 4;
-  }
+    if (check == 0)
+    {
+        blocktemp[0] = ((block[0] & 0xf0) >> 4) | (block[1] & 0xf0);
+        blocktemp[1] = ((block[1] & 0xf) << 4) | (block[0] & 0xf);
+    }
+    else
+    {
+        blocktemp[0] = block[2] << 4;
+        blocktemp[1] = block[0];
+        blocktemp[2] = block[3];
+        blocktemp[3] = block[1] >> 4;
+    }
 
-  cleaner();
+    cleaner();
 
-  for (i = 0; i < 4; i++)
-    block[i] = blocktemp[i];
+    for (i = 0; i < 4; i++)
+        block[i] = blocktemp[i];
 
-  createblock();
+    createblock();
 }
 
 int cleaner(void) // Removes the "leftovers" from the blocks previous position after a movement is performed
 {
-  clearblock();
+    clearblock();
 
-  for (i = 0; i < 4; i++)
-  {
-    if ((screen[y + i] & blocktemp[0]) || (screen[y + 4 + i] & blocktemp[1]) ||
-        (screen[y + 128 + i] & blocktemp[2]) || (screen[y + 128 + 4 + i] & blocktemp[3]))
+    for (i = 0; i < 4; i++)
     {
-      createblock();
-      return 1;
+        if ((screen[y + i] & blocktemp[0]) || (screen[y + 4 + i] & blocktemp[1]) ||
+            (screen[y + 128 + i] & blocktemp[2]) || (screen[y + 128 + 4 + i] & blocktemp[3]))
+        {
+            createblock();
+            return 1;
+        }
     }
-  }
-  return 0;
+    return 0;
 }
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
-  int k = 0;
-  int j = 0;
-  for (i = 0; i < 4; i++)
-  {
-    if (screen[(y % 128) + (128 * i)] != 255)
-    {
-      return;
-    }
-  }
 
-  //clears blocks if one row is full
-  for (i = 0; i < 4; i++)
-  {
-    for (k = 0; k < 4; k++)
+    int k = 0;
+    int j = 0;
+    for (i = 0; i < 4; i++)
     {
-      screen[((y + i) % 128) + (128 * k)] = 0;
+        if (screen[(y % 128) + (128 * i)] != 255)
+        {
+            return;
+        }
     }
-  }
 
-  for (i = y % 128; i < 124; i++)
-  {
-    for (k = 0; k < 4; k++)
+    //clears blocks if one row is full
+    for (i = 0; i < 4; i++)
     {
-      screentemp[i + (128 * k)] = screen[i + 4 + (128 * k)];
+        for (k = 0; k < 4; k++)
+        {
+            screen[((y + i) % 128) + (128 * k)] = 0;
+        }
     }
-  }
 
-  for (i = y % 128; i < 124; i++)
-  {
-    for (k = 0; k < 4; k++)
+    for (i = y % 128; i < 124; i++)
     {
-      screen[i + (128 * k)] = screentemp[i + (128 * k)];
+        for (k = 0; k < 4; k++)
+        {
+            screentemp[i + (128 * k)] = screen[i + 4 + (128 * k)];
+        }
     }
-  }
-  
-    gamescore +=1;
+
+    for (i = y % 128; i < 124; i++)
+    {
+        for (k = 0; k < 4; k++)
+        {
+            screen[i + (128 * k)] = screentemp[i + (128 * k)];
+        }
+    }
+    rowcomplete();
+    gamescore += 1;
 
     // game speed increased
-    gamespeed +=1;
-
+    gamespeed += 1;
 }
