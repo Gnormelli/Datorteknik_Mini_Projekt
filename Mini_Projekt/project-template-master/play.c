@@ -24,6 +24,9 @@ int blocktemp[4] = {0};
 int shape = 0; // 0 = Cube, 1 = L-shape , 2 = Z - shape , 3 = Rectangle, 4 = T - shape
 int check = 0;
 
+// horizontal[]={}; for scoredisplay extra
+// vertical[]=;      for scoredisplay extra
+
 int btnpressed = 0;
 
 int gamespeed = 60;
@@ -74,6 +77,8 @@ void play(bool *end)
         btnpressed = 0;
 
     display_image(0, screen); // update image on screen
+
+    gameHighScore();
 
     if (IFS(0))
     {
@@ -186,6 +191,80 @@ void countdown(void) // Countdown for the game
     delay(1000);
     for (i = 0; i < 7; i++)
         screen[320 + i] = 0; // Clears the screen
+}
+/*
+void scoredisplay(gamescore) // Countdown for the game
+{
+    if (gamescore == 0)
+    {
+        screen[7] = 31;           // 1 1111
+        screen[6] = 17;           // 1    1
+        screen[5] = 17;           // 1    1
+        screen[4] = 17;           // 1    1
+        screen[3] = 17;           // 1    1
+        screen[2] = 17;           // 1    1
+        screen[1] = 31;           // 1 1111
+        display_image(0, screen); // shows 0
+    }
+    else if (gamescore = 1)
+    {
+        screen[7] = 17; // 1
+        screen[6] = 17; // 1
+        screen[5] = 17; // 1
+        screen[4] = 17; // 1
+        screen[3] = 17; // 1
+        screen[2] = 17; // 1
+        screen[1] = 17; // 1
+    }
+    else if (gamescore = 3)
+    {
+        screen[320] = 31; // 1 1111            1 1111            1
+        screen[321] = 16; // 1                      1            1
+        screen[322] = 16; // 1                      1            1
+        screen[323] = 31; // 1 1111    ----->  1 1111   ---->    1
+        screen[324] = 16; // 1                 1                 1
+        screen[325] = 16; // 1                 1                 1
+        screen[326] = 31; // 1 1111            1 1111            1
+    }
+    else if (9<gamescore){
+
+    }
+    screen[320] = 31; // 1 1111            1 1111            1
+    screen[321] = 16; // 1                      1            1
+    screen[322] = 16; // 1                      1            1
+    screen[323] = 31; // 1 1111    ----->  1 1111   ---->    1
+    screen[324] = 16; // 1                 1                 1
+    screen[325] = 16; // 1                 1                 1
+    screen[326] = 31; // 1 1111            1 1111            1
+    screen[7] = 17;   // 1
+    screen[6] = 17;   // 1
+    screen[5] = 17;   // 1
+    screen[4] = 17;   // 1
+    screen[3] = 17;   // 1
+    screen[2] = 17;   // 1
+    screen[1] = 17;   // 1
+
+    display_image(0, screen); // shows 0
+    delay(1000);
+    screen[321] = 1;
+    screen[322] = 1;
+    display_image(0, screen); // changes 3 -> 2
+    delay(1000);
+    for (i = 0; i < 7; i++)
+        screen[320 + i] = 1;
+    display_image(0, screen); // changes 2 -> 1
+    delay(1000);
+    for (i = 0; i < 7; i++)
+        screen[320 + i] = 0; // Clears the screen
+}
+*/
+
+void gameHighScore(gamescore){
+
+    char hscore[12] = {8, 8, 8, 8, 8, 8, 8, 8, 72, 83, 58, gamescore+30};
+    display_string(0, hscore);
+    display_update();
+
 }
 
 void moveright(void) // move right logic, if BTN1 is pressed, the block will move right
