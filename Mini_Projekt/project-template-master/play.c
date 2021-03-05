@@ -26,7 +26,7 @@ int check = 0;
 
 int btnpressed = 0;
 
-int gamespeed = 0;
+float gamespeed = 1.2;
 
 int i;
 int k;
@@ -54,9 +54,10 @@ void gameboard(void)
     return;
 }
 
-void play(bool *end)
+void play(bool *start)
 { // Use the pointers for returning score and end for breaking loop.
 
+    bool end = *start;
     int btn = getbtns();
     if (btn != 0 && btnpressed == 0)
     {
@@ -79,7 +80,7 @@ void play(bool *end)
     if (IFS(0))
     {
         IFS(0) = 0;
-        movedown();
+        movedown(bool *end);
     }
     return;
 }
@@ -138,7 +139,7 @@ void newshape(void) // generates a new block at the top of the gamescreen
     createblock();
 }
 
-void movedown(void) // move down logic, every tick will make the block fall
+void movedown(bool *start) // move down logic, every tick will make the block fall
 {
     if ((screen[y - 1] & block[0]) || (screen[y - 1 + 128] & block[2]) ||
         ((screen[y + 3] & ~block[0]) & block[1]) || ((screen[y + 3 + 128] & ~block[2]) & block[3]))
@@ -150,6 +151,7 @@ void movedown(void) // move down logic, every tick will make the block fall
         if (y % 128 > 105)
         {
             gameover(gamescore);
+            *start = false;
         }
         rowcomplete();
         newshape();
