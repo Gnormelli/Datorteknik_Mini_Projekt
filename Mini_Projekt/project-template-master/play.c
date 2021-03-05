@@ -325,7 +325,6 @@ int cleaner(void) // Removes the "leftovers" from the blocks previous position a
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
-
     int k = 0;
     int j = 0;
     for (i = 0; i < 4; i++)

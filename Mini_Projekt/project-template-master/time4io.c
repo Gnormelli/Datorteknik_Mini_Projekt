@@ -7,8 +7,8 @@
  * switches are bits 11-8
  * slr >> 8 steps to teturn 4 LSB
  */
-int getsw(void)  // called as "getsw();"
-{ 
+int getsw(void) // called as "getsw();"
+{
 
     return (PORTD >> 8) & 0x000F;
 }
