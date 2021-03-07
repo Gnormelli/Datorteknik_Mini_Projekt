@@ -34,6 +34,7 @@ int k;
 int gamescore = 0;
 char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
 
+// Gustav
 void gameboard(void)
 {
     for (i = 0; i < 512; i++)
@@ -59,6 +60,7 @@ void gameboard(void)
     return;
 }
 
+//Gustav
 void play(bool *start)
 { // Use the pointers for returning score and end for breaking loop.
     bool end = false;
@@ -101,6 +103,7 @@ void play(bool *start)
     return;
 }
 
+//Viktor
 void createblock(void) // Self explanatory
 {
     for (i = 0; i < 4; i++)
@@ -116,6 +119,7 @@ void createblock(void) // Self explanatory
     }
 }
 
+//Viktor
 void clearblock(void) // Self explanatory
 {
     //Removes previous block iteration
@@ -132,6 +136,7 @@ void clearblock(void) // Self explanatory
     }
 }
 
+//Viktor
 void newshape(void) // generates a new block at the top of the gamescreen
 {
     shape = TMR3 % 3; // value between [0-2]
@@ -155,6 +160,7 @@ void newshape(void) // generates a new block at the top of the gamescreen
     createblock();
 }
 
+//Gustav
 void movedown(bool *end) // move down logic, every tick will make the block fall
 {
     if ((screen[y - 1] & block[0]) || (screen[y - 1 + 128] & block[2]) ||
@@ -183,6 +189,7 @@ void movedown(bool *end) // move down logic, every tick will make the block fall
     }
 }
 
+//Viktor
 void moveright(void) // move right logic, if BTN1 is pressed, the block will move right
 {
     if (y >= 384)
@@ -242,6 +249,7 @@ void moveright(void) // move right logic, if BTN1 is pressed, the block will mov
     }
 }
 
+//Viktor
 void moveleft(void) // move left logic, if BTN2 is pressed, the block will move left
 {
     if (y < 128 && (shift == 0))
@@ -302,6 +310,7 @@ void moveleft(void) // move left logic, if BTN2 is pressed, the block will move 
     }
 }
 
+//Viktor
 void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
 {
     for (i = 0; i < 4; i++)
@@ -332,20 +341,7 @@ void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
     createblock();
 }
 
-/*void cleaner(void) // Removes the "leftovers" from the blocks previous position after a movement is performed and creates new at the next position
-{
-    clearblock();
-
-    for (i = 0; i < 4; i++)
-    {
-        if ((screen[y + i] & blocktemp[0]) || (screen[y + 4 + i] & blocktemp[1]) ||
-            (screen[y + 128 + i] & blocktemp[2]) || (screen[y + 128 + 4 + i] & blocktemp[3]))
-        {
-            createblock();
-        }
-    }
-}*/
-
+//Viktor
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase
 {
     for (i = 0; i < 4; i++)
@@ -392,6 +388,7 @@ void rowcomplete(void) // Checks if a row is complete. If its true, the player w
     rowcomplete();
 }
 
+//Gustav
 void countdown(void) // Countdown for the game
 {                    // (screen is oriented upside down)
 

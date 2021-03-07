@@ -14,6 +14,7 @@ int thirdhs = 0;
 
 char scoreboard[9] = {8,8,8,8,8,8,48,48,0};
 
+//Gustav
 void titleview()
 {   
     display_string(0,"     TETRIS");
@@ -23,6 +24,7 @@ void titleview()
     display_update();
 }
 
+//Gustav
 void menu()
 {
 
@@ -33,6 +35,7 @@ void menu()
     display_update();
 }
 
+//Gustav (WIP)
 void write_highscore()
 {
     bool write = true;
@@ -71,6 +74,7 @@ void write_highscore()
     display_update();
 }
 
+//Gustav
 void gameover(int gamescore)
 {
     int score = gamescore;
@@ -114,6 +118,7 @@ void gameover(int gamescore)
     main();
 }
 
+//Gustav
 void highscore()
 {
     display_string(0, "Highscore");

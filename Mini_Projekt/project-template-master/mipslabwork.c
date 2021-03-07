@@ -20,6 +20,7 @@ void user_isr(void)
   return;
 }
 
+//Viktor & Gustav
 void labinit(void)
 {
 
@@ -53,9 +54,10 @@ void labinit(void)
   return;
 }
 
+//Gustav
 void labwork(void)
 {
-  
+
   if (views == 1)
   {
     menu();
