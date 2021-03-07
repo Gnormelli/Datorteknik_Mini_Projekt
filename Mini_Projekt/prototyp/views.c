@@ -111,7 +111,6 @@ void gameover(int gamescore)
     delay(3000);
     highscore();
     delay(3000);
-    main();
 }
 
 void highscore()
