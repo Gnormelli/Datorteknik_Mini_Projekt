@@ -164,7 +164,7 @@ void movedown(bool *end) // move down logic, every tick will make the block fall
         {
             gameover(gamescore);
             delay(3000);
-            *end = false;
+            *end = true;
         }
         rowcomplete();
         for (i = 0; i < 4; i++)
