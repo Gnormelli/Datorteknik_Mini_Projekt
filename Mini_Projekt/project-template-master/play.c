@@ -323,7 +323,7 @@ void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
     createblock();
 }
 
-int cleaner(void) // Removes the "leftovers" from the blocks previous position after a movement is performed
+void cleaner(void) // Removes the "leftovers" from the blocks previous position after a movement is performed
 {
     clearblock();
 
@@ -333,10 +333,8 @@ int cleaner(void) // Removes the "leftovers" from the blocks previous position a
             (screen[y + 128 + i] & blocktemp[2]) || (screen[y + 128 + 4 + i] & blocktemp[3]))
         {
             createblock();
-            return 1;
         }
     }
-    return 0;
 }
 
 void rowcomplete(void) // Checks if a row is complete. If its true, the player will be awarded 1 point and the gamespeed will increase

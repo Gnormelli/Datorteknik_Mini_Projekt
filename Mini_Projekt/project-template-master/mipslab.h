@@ -53,3 +53,25 @@ void time2string( char *, int );
 int getbtns(void);
 int getsw(void);
 void enable_interrupt(void);
+
+
+// play
+void clearblock();
+void createblock();
+void movedown();
+void newshape();
+void countdown();
+void cleaner();
+void moveright();
+void moveleft();
+void rotate();
+void rowcomplete();
+void showhighscores();
+void restart();
+
+//views
+void titleview();
+void menu();
+void write_highscore();
+void gameover();
+void highscore();

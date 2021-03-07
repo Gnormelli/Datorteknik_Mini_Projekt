@@ -115,7 +115,7 @@ void gameover(int gamescore)
 
 void highscore()
 {
-    display_string(0, "Highscore    BTN1");
+    display_string(0, "Highscore - esc BTN1");
 
     display_string(1, highscore1);
     display_string(2, highscore2);
