@@ -37,12 +37,17 @@ char scorescreen[10] = {32, 32, 32, 32, 32, 32, 32, 48, 48, 0};
 // Gustav
 void gameboard(void)
 {
+    // Clears gameboard for next game session
     for (i = 0; i < 512; i++)
+    {
         screen[i] = 0;
-    gamescore = 0;
-    gamespeed = 1.05;
-    // Bottom line for "floor"
+    }
 
+    // Reset the score and game speed
+    gamescore = 0;
+    gamespeed = 1;
+
+    // Bottom line for "floor"
     for (i = 0; i < 4; i++)
     {
         screen[+(128 * i)] = 0xff;
@@ -93,7 +98,7 @@ void play(bool *start)
     {
         btnpressed = 0;
     }
-        
+
     display_image(0, screen);
     if (IFS(0))
     {
@@ -147,13 +152,14 @@ void newshape(void) // generates a new block at the top of the gamescreen
     {
         block[i] = 0;
     }
-    block[0] = 0xff;
 
-    if (shape == 1)
+    block[0] = 0xff; // Rectangle - 0
+
+    if (shape == 1) // Square - 1
     {
         block[1] = 0xff;
     }
-    if (shape == 2)
+    if (shape == 2) // L - 2
     {
         block[1] = 0xf;
     }
@@ -173,10 +179,12 @@ void movedown(bool *end) // move down logic, every tick will make the block fall
             *end = true;
         }
         rowcomplete();
+
         for (i = 0; i < 4; i++)
         {
             block[i] = 0;
         }
+
         newshape();
     }
     else
@@ -270,16 +278,16 @@ void moveleft(void) // move left logic, if BTN2 is pressed, the block will move 
         blocktemp[2] = ((block[0] & 0xf0) >> 4);
         blocktemp[3] = ((block[1] & 0xf0) >> 4);
     }
-     else if (shift == 1)
+    else if (shift == 1)
     {
         blocktemp[2] = (block[0] >> 4) | (block[2] << 4);
         blocktemp[3] = (block[1] >> 4) | (block[3] << 4);
     }
 
-     //clear old blocks
+    //clear old blocks
     clearblock();
 
-     //Puts the temporary block array back to primary array
+    //Puts the temporary block array back to primary array
     if (shift == 0)
     {
         for (i = 0; i < 4; i++)
@@ -303,7 +311,7 @@ void moveleft(void) // move left logic, if BTN2 is pressed, the block will move 
         y -= 128;
         createblock();
     }
-    else if(shift == 1)
+    else if (shift == 1)
     {
         shift = 0;
         createblock();
@@ -337,7 +345,7 @@ void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
     {
         block[i] = blocktemp[i];
     }
-    
+
     createblock();
 }
 
@@ -381,10 +389,11 @@ void rowcomplete(void) // Checks if a row is complete. If its true, the player w
 
     gamescore += 1;
 
-    // game speed increased
+    // Game speed increases after each point
     gamespeed += 1;
     PR2 = ((80000000 / 10 / 256) / gamespeed);
 
+    // Will repeat until there is no other rows to clear
     rowcomplete();
 }
 
