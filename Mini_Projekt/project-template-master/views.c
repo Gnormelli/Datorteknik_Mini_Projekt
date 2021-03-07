@@ -16,10 +16,10 @@ char scoreboard[9] = {8,8,8,8,8,8,48,48,0};
 
 void titleview()
 {   
-    display_string(0,"          ");
-    display_string(1, "     TETRIS");
-    display_string(2,"          ");
-    display_string(3,"          ");
+    display_string(0,"     TETRIS");
+    display_string(1, "");
+    display_string(2,"       by   ");
+    display_string(3," Gustav & Viktor     ");
     display_update();
 }
 
@@ -32,6 +32,7 @@ void menu()
     display_string(3, "    ");
     display_update();
 }
+
 void write_highscore()
 {
     bool write = true;
@@ -101,8 +102,8 @@ void gameover(int gamescore)
 
     display_string(0, "    GAME OVER");
     display_string(1, "     score:");
-    display_string(3, "");
-    display_string(2, scoreboard);
+    display_string(2, "");
+    display_string(3, scoreboard);
     display_update();
 
     score = 0;
@@ -115,7 +116,7 @@ void gameover(int gamescore)
 
 void highscore()
 {
-    display_string(0, "Highscore - esc BTN1");
+    display_string(0, "Highscore");
 
     display_string(1, highscore1);
     display_string(2, highscore2);

@@ -3,7 +3,7 @@
 #include "mipslab.h" /* Declatations for these labs */
 #include <stdbool.h>
 
-#define TMR2PERIOD (80000000 / 50 / 256)
+#define TMR2PERIOD (80000000 / 10 / 256)
 
 volatile int *TRIS_E; // declare the pointers volatile and global
 volatile int *PORT_E; // DONT!!!!! use the defenitions in pic32 sheet, numerous errors occur
