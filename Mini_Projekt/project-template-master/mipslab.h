@@ -55,7 +55,7 @@ int getsw(void);
 void enable_interrupt(void);
 
 
-// play
+// play - written by Viktor and Gustav
 void clearblock();
 void createblock();
 void movedown();
@@ -69,7 +69,7 @@ void rowcomplete();
 void showhighscores();
 void restart();
 
-//views
+//views - written by Gustav
 void titleview();
 void menu();
 void write_highscore();

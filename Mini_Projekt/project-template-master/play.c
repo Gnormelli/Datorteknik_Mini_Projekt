@@ -326,6 +326,7 @@ void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
         blocktemp[i] = 0;
     }
 
+    // Rotate the array depending of shift sequence
     if (shift == 0)
     {
         blocktemp[0] = ((block[0] & 0xf0) >> 4) | (block[1] & 0xf0);
@@ -341,6 +342,7 @@ void rotate(void) // rotation logic, if BTN3 is pressed, the block will rotate
 
     clearblock();
 
+    //Put temporary array back into primary array
     for (i = 0; i < 4; i++)
     {
         block[i] = blocktemp[i];
@@ -354,7 +356,7 @@ void rowcomplete(void) // Checks if a row is complete. If its true, the player w
 {
     for (i = 0; i < 4; i++)
     {
-        if (screen[(y % 128) + (128 * i)] != 255)
+        if (screen[(y % 128) + (128 * i)] != 0xff)
         {
             return;
         }
