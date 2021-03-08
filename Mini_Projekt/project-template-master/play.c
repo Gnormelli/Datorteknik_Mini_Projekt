@@ -413,8 +413,8 @@ void countdown(void) // Countdown for the game
 
     display_image(0, screen); // shows 3
     delay(1000);
-    screen[321] = 1;
-    screen[322] = 1;
+    screen[321] = 0x1;
+    screen[322] = 0x1;
     display_image(0, screen); // changes 3 -> 2
     delay(1000);
     for (i = 0; i < 7; i++)
